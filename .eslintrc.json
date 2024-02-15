@@ -1,0 +1,65 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    // "plugin:prettier/recommended"
+    "prettier"
+  ],
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "react-hooks/rules-of-hooks": [
+      "error",
+      {
+        // Add custom exceptions: ignore all chakra UI hooks
+        "allowedNames": [
+          "useColorModeValue",
+          "useBoolean",
+          "useBreakpointValue",
+          "useClipboard",
+          "useConst",
+          "useControllableState",
+          "useDimensions",
+          "useDisclosure",
+          "useMediaQuery",
+          "useMergeRefs",
+          "useOutsideClick",
+          "usePrefersReducedMotion",
+          "useTheme",
+          "useToken",
+          "useCheckbox",
+          "useCheckboxGroup",
+          "useRadio",
+          "useRadioGroup",
+          "useSlider",
+          "useRangeSlider"
+        ]
+      }
+    ],
+    "import/order": [
+      "warn",
+      {
+        "groups": [["builtin", "external"], "internal", ["parent", "sibling", "index"]],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ],
+
+    // "prettier/prettier": "error", // Enforce Prettier's formatting rules
+    "prefer-const": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "warn"
+  }
+}
