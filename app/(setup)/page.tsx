@@ -37,7 +37,7 @@ const SetupPage = async () => {
     return redirect(`/servers/${server.id}`)
   }
 
-  return <div>Create a server</div>
+  return <div>Setup Page (Next: Create Server if profile has no server)</div>
 }
 
 export default SetupPage
