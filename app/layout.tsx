@@ -3,6 +3,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
+import { ThemeProvider } from '@/components/provider/theme-provider'
+
 const font = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -13,8 +15,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
-      <html lang="en" className="tw-h-screen">
-        <body className={font.className}>{children}</body>
+      <html lang="en" suppressHydrationWarning>
+        <body className={font.className}>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+            {children}
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   )
