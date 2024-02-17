@@ -16,12 +16,14 @@
 // }
 
 import { redirect } from 'next/navigation'
+import * as React from 'react'
 
 import { db } from '@/lib/db'
 import { initialProfile } from '@/lib/initial-profile'
 
 const SetupPage = async () => {
   const profile = await initialProfile()
+  const a = 'assdfsadsadsad'
 
   const server = await db.server.findFirst({
     where: {
