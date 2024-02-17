@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    // "plugin:prettier/recommended"
-    "prettier"
-  ],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
   "plugins": ["@typescript-eslint", "import"],
   "rules": {
     "quotes": ["error", "single"],
@@ -15,34 +10,6 @@
         "ignoreUrls": true,
         "ignoreStrings": true,
         "ignoreTemplateLiterals": true
-      }
-    ],
-    "react-hooks/rules-of-hooks": [
-      "error",
-      {
-        // Add custom exceptions: ignore all chakra UI hooks
-        "allowedNames": [
-          "useColorModeValue",
-          "useBoolean",
-          "useBreakpointValue",
-          "useClipboard",
-          "useConst",
-          "useControllableState",
-          "useDimensions",
-          "useDisclosure",
-          "useMediaQuery",
-          "useMergeRefs",
-          "useOutsideClick",
-          "usePrefersReducedMotion",
-          "useTheme",
-          "useToken",
-          "useCheckbox",
-          "useCheckboxGroup",
-          "useRadio",
-          "useRadioGroup",
-          "useSlider",
-          "useRangeSlider"
-        ]
       }
     ],
     "import/order": [
