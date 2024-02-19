@@ -4,7 +4,6 @@ const config = {
   darkMode: ['class', '[class="dark"]'], // allow dark mode with prefix
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   prefix: 'tw-',
-  // important: true,
   theme: {
     container: {
       center: true,
@@ -48,6 +47,7 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        server: '#1E1F22',
       },
       borderRadius: {
         lg: 'var(--radius)',

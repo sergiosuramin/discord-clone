@@ -2,7 +2,7 @@ import { authMiddleware } from '@clerk/nextjs'
 
 export default authMiddleware({
   // pages can be accessed as guest
-  // publicRoutes: ['/anyone-can-visit-this-route'],
+  publicRoutes: ['/api/uploadthing'],
   // page with no auth info
   // ignoredRoutes: ['/no-auth-in-this-route'],
 })

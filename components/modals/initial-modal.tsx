@@ -1,10 +1,13 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
+import FileUpload from '@/components/file-upload'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -21,13 +24,14 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: 'Server name is required',
   }),
-  // imageUrl: z.string().min(1, {
-  //   message: 'Server image is required',
-  // }),
+  imageUrl: z.string().min(1, {
+    message: 'Server image is required',
+  }),
 })
 
 const InitialModal = () => {
   const [mounted, setMounted] = useState<boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
@@ -45,6 +49,16 @@ const InitialModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('lala-- values--', values)
+
+    try {
+      await axios.post('/api/servers', values)
+
+      form.reset()
+      router.refresh()
+      window.location.reload()
+    } catch (error) {
+      console.log('lala-- <submit create server>--', error)
+    }
   }
 
   // to prevent hydration caused by SSR
@@ -52,7 +66,7 @@ const InitialModal = () => {
 
   return (
     <Dialog open>
-      <DialogContent className="tw-bg-white tw-text-black tw-p-0 tw-overflow-hidden">
+      <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
           <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your Customized Server</DialogTitle>
           <DialogDescription className="tw-text-center tw-text-zinc-500">
@@ -63,7 +77,19 @@ const InitialModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="tw-space-y-8">
             <div className="tw-space-y-8 tw-px-6">
-              <div className="tw-flex tw-justify-center tw-items-center">Later: Image Upload</div>
+              <div className="tw-flex tw-justify-center tw-items-center">
+                <FormField
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}
@@ -75,7 +101,7 @@ const InitialModal = () => {
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="tw-bg-zinc-300/50 tw-border-0 focus-visible:tw-ring-0 tw-text-black focus-visible:tw-ring-offset-0"
+                        className="tw-bg-zinc-300/50 tw-border-0 focus-visible:!tw-ring-0 tw-text-black focus-visible:!tw-ring-offset-0"
                         placeholder="Enter server name"
                         {...field}
                       />
