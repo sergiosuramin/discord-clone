@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -29,6 +31,7 @@ const formSchema = z.object({
 
 const InitialModal = () => {
   const [mounted, setMounted] = useState<boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
@@ -46,6 +49,16 @@ const InitialModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('lala-- values--', values)
+
+    try {
+      await axios.post('/api/servers', values)
+
+      form.reset()
+      router.refresh()
+      window.location.reload()
+    } catch (error) {
+      console.log('lala-- <submit create server>--', error)
+    }
   }
 
   // to prevent hydration caused by SSR
