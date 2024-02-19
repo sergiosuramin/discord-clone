@@ -42,3 +42,9 @@ const SetupPage = async () => {
 }
 
 export default SetupPage
+
+// TODO:
+// For now, force user to create their server if they dont have one.
+// Prior production, it will be changed to:
+// owning a server is not required.
+// alternative: force user to join creator server by default (last option)
