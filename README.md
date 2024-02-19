@@ -1,18 +1,31 @@
-## Discord Clone With Nextjs (Practice)
+## Full Stack Discord Clone With Nextjs (Practice)
 
-Created by: Sergio Suramin, S.Kom
+🐤 Created by: Sergio Suramin, S.Kom
 
-## Current State
+## Tech Stack
 
-Research, filtering requirement, setting up.
+### 1. Languages and Libraries
+
+- Next.js 13 (React.js)
+- Typescript
+- Shadcn UI
+- Tailwind CSS
+- Others: To be written here soon
+
+### 2. Farewell to Inconsistent Coding Style!
+
+- ✔️ Husky
+- ✔️ Eslint
+- ✔️ Prettier
+- ✔️ VS Code formatter
 
 ## Plan
 
-Start in Mid/End of February 2024.
+🟢 Start in Mid/End of February 2024.
 
 ## Status
 
-Initializing...
+⌛ In Progress
 
 ---
 
@@ -21,14 +34,18 @@ Initializing...
 First, install the dependencies:
 
 ```bash
-yarn install
+npm install
 ```
 
 Then, run the development server:
 
 ```bash
-yarn dev
+npm run dev
 ```
+
+## Deployment
+
+⌛ No live link available yet (in development)
 
 ## Commit Message
 
