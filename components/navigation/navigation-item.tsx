@@ -1,8 +1,9 @@
 'use client'
 import Image from 'next/image'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { ActionTooltip } from '@/components/action-tooltip'
+import { useCurrentServer } from '@/hooks/use-current-server'
 import { cn } from '@/lib/utils'
 
 interface NavigationItemProps {
@@ -11,10 +12,8 @@ interface NavigationItemProps {
   name: string
 }
 export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
-  const params = useParams()
   const router = useRouter()
-
-  const isCurrentServer = params?.serverId === id
+  const { isCurrentServer } = useCurrentServer(id)
 
   const onServerClick = () => {
     router.push(`/servers/${id}`)

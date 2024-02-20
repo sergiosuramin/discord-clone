@@ -1,11 +1,9 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FileUpload from '@/components/file-upload'
 import { Button } from '@/components/ui/button'
@@ -19,15 +17,8 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-
-const formSchema = z.object({
-  name: z.string().min(1, {
-    message: 'Server name is required',
-  }),
-  imageUrl: z.string().min(1, {
-    message: 'Server image is required',
-  }),
-})
+import { zr, createServerSchema } from '@/lib/zod'
+import { TCreateServerSchema } from '@/types/schema'
 
 const InitialModal = () => {
   const [mounted, setMounted] = useState<boolean>(false)
@@ -38,16 +29,16 @@ const InitialModal = () => {
   }, [])
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zr(createServerSchema),
     defaultValues: {
       name: '',
       imageUrl: '',
     },
   })
 
-  const isLoading = form.formState.isSubmitting
+  const { isSubmitting } = form.formState
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: TCreateServerSchema) => {
     console.log('lala-- values--', values)
 
     try {
@@ -86,6 +77,7 @@ const InitialModal = () => {
                       <FormControl>
                         <FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -100,7 +92,7 @@ const InitialModal = () => {
 
                     <FormControl>
                       <Input
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                         className="tw-bg-zinc-300/50 tw-border-0 focus-visible:!tw-ring-0 tw-text-black focus-visible:!tw-ring-offset-0"
                         placeholder="Enter server name"
                         {...field}
@@ -113,7 +105,7 @@ const InitialModal = () => {
             </div>
 
             <DialogFooter className="tw-bg-gray-100 tw-px-6 tw-py-4">
-              <Button disabled={isLoading} variant="primary">
+              <Button disabled={isSubmitting} variant="primary">
                 Create
               </Button>
             </DialogFooter>
