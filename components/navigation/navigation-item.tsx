@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { ActionTooltip } from '@/components/action-tooltip'
-import { useCurrentServer } from '@/hooks/use-current-server'
+import { useCurrentServer } from '@/hooks/misc'
 import { cn } from '@/lib/utils'
 
 interface NavigationItemProps {
@@ -27,8 +27,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
           <div
             className={cn(
               'tw-absolute tw-left-0 tw-bg-primary tw-rounded-r-full tw-transition-all tw-w-[4px]',
-              !isCurrentServer && 'group-hover:tw-h-[20px]',
-              isCurrentServer ? 'tw-h-[36px]' : 'tw-h-[8px]'
+              isCurrentServer ? 'tw-h-[36px]' : 'tw-h-[8px] group-hover:tw-h-[20px]'
             )}
           />
 

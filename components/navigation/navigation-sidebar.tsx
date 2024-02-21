@@ -28,7 +28,6 @@ const NavigationSidebar = async () => {
     },
   })
 
-  console.log('lala-- servers--', servers)
   return (
     <div className="tw-space-y-4 tw-flex tw-flex-col tw-items-center tw-w-full tw-h-full tw-text-primary dark:tw-bg-server tw-py-3">
       <NavigationAction />
@@ -36,7 +35,9 @@ const NavigationSidebar = async () => {
 
       <ScrollArea className="tw-flex-1 tw-w-full">
         {servers.map((server, index) => (
-          <NavigationItem key={index} id={server.id} name={server.name} imageUrl={server.imageUrl} />
+          <div key={server.id ?? index} className="tw-mb-4">
+            <NavigationItem id={server.id} name={server.name} imageUrl={server.imageUrl} />
+          </div>
         ))}
       </ScrollArea>
 

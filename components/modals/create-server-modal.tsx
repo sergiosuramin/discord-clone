@@ -1,8 +1,5 @@
-'use client'
-
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import FileUpload from '@/components/file-upload'
@@ -17,16 +14,13 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { zr, createServerSchema } from '@/lib/zod'
 import { TCreateServerSchema } from '@/types/schema'
 
-export const InitialModal = () => {
-  const [mounted, setMounted] = useState<boolean>(false)
+export const CreateServerModal = () => {
+  const { isOpen, onClose, type } = useModal()
   const router = useRouter()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const form = useForm({
     resolver: zr(createServerSchema),
@@ -50,19 +44,26 @@ export const InitialModal = () => {
         alert('Failed to Server (todo: replace with toast)')
       }
 
-      form.reset()
+      onOpenDialogChange()
       router.refresh()
-      window.location.reload()
     } catch (error) {
       console.log('lala-- <submit create server>--', error)
     }
   }
 
-  // to prevent hydration caused by SSR
-  if (!mounted) return null
+  const isModalOpen = isOpen && type === 'createServer'
+
+  const onOpenDialogChange = () => {
+    /** we only need to handle onClose here because
+     * we will do onOpen in other folders.
+     */
+
+    form.reset()
+    onClose()
+  }
 
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={onOpenDialogChange}>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
           <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your Customized Server</DialogTitle>
