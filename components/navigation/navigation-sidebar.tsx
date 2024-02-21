@@ -29,7 +29,7 @@ const NavigationSidebar = async () => {
   })
 
   return (
-    <div className="tw-space-y-4 tw-flex tw-flex-col tw-items-center tw-w-full tw-h-full tw-text-primary dark:tw-bg-server tw-py-3">
+    <div className="tw-space-y-4 tw-flex tw-flex-col tw-items-center tw-w-full tw-h-full tw-text-primary tw-bg-zinc-200 dark:tw-bg-server tw-py-3">
       <NavigationAction />
       <Separator className="!tw-w-8 tw-h-[2px] tw-bg-zinc-300 dark:tw-bg-zinc-700 tw-rounded-md tw-mx-auto" />
 
