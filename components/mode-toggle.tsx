@@ -19,7 +19,7 @@ export function ModeToggle() {
           <span className="tw-sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent side="bottom" align="start">
         <DropdownMenuItem onClick={() => setTheme(SystemMode.Light)}>Light</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme(SystemMode.Dark)}>Dark</DropdownMenuItem>
       </DropdownMenuContent>

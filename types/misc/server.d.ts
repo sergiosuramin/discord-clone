@@ -1,8 +1,6 @@
-type TModalType = 'createServer'
+import { Member, Profile, Server } from '@prisma/client'
 
-interface IModalStore {
-  type: TModalType | null
-  isOpen: boolean
-  onOpen: (type: TModalType) => void
-  onClose: () => void
+// server with member and profiles
+type TServerAllProps = Server & {
+  members: (Member & { profile: Profile })[]
 }
