@@ -13,7 +13,9 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
 import { useCurrentRole } from '@/hooks/misc'
+import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { cn } from '@/lib/utils'
+import { EModalType } from '@/types/enums'
 import { TServerAllProps } from '@/types/misc'
 
 interface ServerHeaderProps {
@@ -44,6 +46,7 @@ const ServerMenuItem = ({ title, className, onClick, icon }: ServerMenuItemProps
 }
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
+  const { onOpen } = useModal()
   const { isAdmin, isModerator } = useCurrentRole(role)
 
   return (
@@ -62,7 +65,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {(isAdmin || isModerator) && (
           <ServerMenuItem
             title="Invite People"
-            onClick={() => alert('invite people')}
+            onClick={() => onOpen(EModalType.InviteToServer, { server })}
             className="tw-text-indigo-600 dark:tw-text-indigo-400"
             icon={<UserPlus className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />
