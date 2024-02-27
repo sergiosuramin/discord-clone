@@ -75,7 +75,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           <Fragment>
             <ServerMenuItem
               title="Server Settings"
-              onClick={() => alert('server setting')}
+              onClick={() => onOpen(EModalType.ServerSetting, { server })}
               icon={<Settings className="tw-w-4 tw-h-4 tw-ml-auto" />}
             />
             <ServerMenuItem

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import FileUpload from '@/components/file-upload'
@@ -19,11 +20,12 @@ import { zr, createServerSchema } from '@/lib/zod'
 import { EModalType } from '@/types/enums'
 import { TCreateServerSchema } from '@/types/schema'
 
-export const CreateServerModal = () => {
-  const { isOpen, onClose, type } = useModal()
+export const EditServerModal = () => {
+  const { isOpen, onClose, type, data } = useModal()
   const router = useRouter()
 
-  const isModalOpen = isOpen && type === EModalType.CreateServer
+  const isModalOpen = isOpen && type === EModalType.ServerSetting
+  const { server } = data
 
   const form = useForm({
     resolver: zr(createServerSchema),
@@ -33,13 +35,20 @@ export const CreateServerModal = () => {
     },
   })
 
+  useEffect(() => {
+    if (server) {
+      form.setValue('name', server.name)
+      form.setValue('imageUrl', server.imageUrl)
+    }
+  }, [server, form])
+
   const { isSubmitting } = form.formState
 
   const onSubmit = async (values: TCreateServerSchema) => {
     try {
-      const res = await axios.post('/api/servers', values)
+      const res = await axios.patch(`/api/servers/${server?.id}`, values)
 
-      console.log('lala-- res--', res)
+      console.log('lala-- res edit--', res)
 
       if (res.status === 200) {
         alert('Create Server Success (todo: replace with toast)')
@@ -114,7 +123,7 @@ export const CreateServerModal = () => {
 
             <DialogFooter className="tw-bg-gray-100 tw-px-6 tw-py-4">
               <Button disabled={isSubmitting} variant="primary">
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
