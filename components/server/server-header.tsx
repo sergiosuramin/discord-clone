@@ -28,17 +28,12 @@ interface ServerMenuItemProps {
   className?: string
   onClick?: () => void
   icon: ReactNode
+  type?: string
 }
 
-const ServerMenuItem = ({ title, className, onClick, icon }: ServerMenuItemProps) => {
+const ServerMenuItem = ({ title, className, onClick, icon, type }: ServerMenuItemProps) => {
   return (
-    <DropdownMenuItem
-      className={cn(
-        'tw-px-3 tw-py-2 tw-text-sm tw-cursor-pointer hover:!tw-bg-indigo-600/70 dark:hover:tw-bg-indigo-400 hover:tw-text-primary dark:hover:tw-text-primary',
-        className
-      )}
-      onClick={() => onClick?.()}
-    >
+    <DropdownMenuItem className={cn('tw-px-3 tw-py-2 tw-text-sm', className)} onClick={() => onClick?.()} type={type}>
       {title}
       {icon}
     </DropdownMenuItem>
@@ -80,7 +75,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             />
             <ServerMenuItem
               title="Manage Members"
-              onClick={() => alert('manage member')}
+              onClick={() => onOpen(EModalType.ManageMembers, { server })}
               icon={<Users className="tw-w-4 tw-h-4 tw-ml-auto" />}
             />
           </Fragment>
@@ -99,8 +94,8 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isAdmin && (
           <ServerMenuItem
             title="Delete Server"
-            className="tw-text-rose-500 hover:!tw-bg-rose-600/70 dark:hover:!tw-bg-rose-500"
             onClick={() => alert('delete server')}
+            type="danger"
             icon={<Trash className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />
         )}
@@ -108,8 +103,8 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {!isAdmin && (
           <ServerMenuItem
             title="Leave Server"
-            className="tw-text-rose-500 hover:!tw-bg-rose-600/70 dark:hover:!tw-bg-rose-500"
             onClick={() => alert('leave server')}
+            type="danger"
             icon={<LogOut className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />
         )}

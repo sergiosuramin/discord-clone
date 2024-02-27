@@ -75,14 +75,16 @@ DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
+    type?: string
     inset?: boolean
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, type, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'tw-relative tw-flex tw-cursor-default tw-select-none tw-items-center tw-rounded-sm tw-px-2 tw-py-1.5 tw-text-sm tw-outline-none tw-transition-colors focus:tw-bg-accent focus:tw-text-accent-foreground data-[disabled]:tw-pointer-events-none data-[disabled]:tw-opacity-50',
+      'tw-relative tw-flex tw-cursor-pointer tw-select-none tw-items-center tw-rounded-sm tw-px-2 tw-py-1.5 tw-text-sm tw-outline-none tw-transition-colors focus:tw-bg-accent focus:tw-text-accent-foreground data-[disabled]:tw-pointer-events-none data-[disabled]:tw-opacity-50 hover:tw-text-primary dark:hover:tw-text-primary hover:!tw-bg-indigo-600/70 dark:hover:tw-bg-indigo-400',
       inset && 'tw-pl-8',
+      type === 'danger' && 'tw-text-rose-500 hover:!tw-bg-rose-600/70 dark:hover:!tw-bg-rose-500',
       className
     )}
     {...props}

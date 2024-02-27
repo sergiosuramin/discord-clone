@@ -1,7 +1,7 @@
 import { Server } from '@prisma/client'
 
 // value must match with EModalType
-type TModalType = 'createServer' | 'invite' | 'editServer'
+type TModalType = 'createServer' | 'invite' | 'editServer' | 'members'
 
 interface IModalData {
   server?: Server

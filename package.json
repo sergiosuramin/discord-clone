@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.29.7",
     "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",
@@ -27,6 +28,7 @@
     "next": "13.4.9",
     "next-themes": "^0.2.1",
     "postcss": "8.4.35",
+    "query-string": "^9.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
