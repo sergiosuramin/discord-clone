@@ -4,4 +4,6 @@ export enum EModalType {
   ServerSetting = 'editServer',
   ManageMembers = 'members',
   CreateChannel = 'createChannel',
+  LeaveServer = 'leaveServer',
+  DeleteServer = 'deleteServer',
 }

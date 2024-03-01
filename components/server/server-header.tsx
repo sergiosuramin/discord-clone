@@ -103,7 +103,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {!isAdmin && (
           <ServerMenuItem
             title="Leave Server"
-            onClick={() => alert('leave server')}
+            onClick={() => onOpen(EModalType.LeaveServer, { server })}
             type="danger"
             icon={<LogOut className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />

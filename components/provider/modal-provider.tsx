@@ -7,6 +7,7 @@ import {
   CreateServerModal,
   EditServerModal,
   InviteModal,
+  LeaveServerModal,
   ManageMemberModal,
 } from '@/components/modals'
 
@@ -26,6 +27,7 @@ export const ModalProvider = () => {
       <EditServerModal />
       <ManageMemberModal />
       <CreateChannelModal />
+      <LeaveServerModal />
     </Fragment>
   )
 }
