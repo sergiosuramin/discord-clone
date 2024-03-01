@@ -94,7 +94,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isAdmin && (
           <ServerMenuItem
             title="Delete Server"
-            onClick={() => alert('delete server')}
+            onClick={() => onOpen(EModalType.DeleteServer, { server })}
             type="danger"
             icon={<Trash className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />

@@ -9,6 +9,28 @@ type EditServerPatchParamsProps = {
   }
 }
 
+export async function DELETE(_req: Request, { params }: EditServerPatchParamsProps) {
+  try {
+    const profile = await currentProfile()
+
+    if (!profile) {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+
+    const server = await db.server.delete({
+      where: {
+        id: params.serverId,
+        profileId: profile.id, // ensure sure only admin can do this
+      },
+    })
+
+    return NextResponse.json(server)
+  } catch (error) {
+    console.log('[server_id_delete]', error)
+    return new NextResponse('Internal Error', { status: 500 })
+  }
+}
+
 export async function PATCH(req: Request, { params }: EditServerPatchParamsProps) {
   try {
     const profile = await currentProfile()
@@ -21,7 +43,7 @@ export async function PATCH(req: Request, { params }: EditServerPatchParamsProps
     const server = await db.server.update({
       where: {
         id: params.serverId,
-        profileId: profile.id, // make sure only admin can do this
+        profileId: profile.id, // ensure sure only admin can do this
         // no need to check the role, because we already validate the UI
       },
       data: {

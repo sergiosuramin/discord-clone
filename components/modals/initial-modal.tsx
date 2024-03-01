@@ -65,13 +65,14 @@ export const InitialModal = () => {
     <Dialog open>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
-          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your Customized Server</DialogTitle>
+          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your First Server!</DialogTitle>
           <DialogDescription className="tw-text-center tw-text-zinc-500">
             Give your server a personality with a name and an image. You can always change it later.
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
+          <span className="tw-text-center tw-text-xs tw-text-zinc-500/40 tw-mb-4">This action is mandatory.</span>
           <form onSubmit={form.handleSubmit(onSubmit)} className="tw-space-y-8">
             <div className="tw-space-y-8 tw-px-6">
               <div className="tw-flex tw-justify-center tw-items-center">

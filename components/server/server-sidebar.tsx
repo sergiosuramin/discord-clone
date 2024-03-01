@@ -62,6 +62,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   return (
     <div className="tw-flex tw-flex-col tw-w-full tw-h-full tw-text-primary tw-bg-channel">
       <ServerHeader server={server} role={myRoleInTheServer} />
+      channel list is in progress
     </div>
   )
 }

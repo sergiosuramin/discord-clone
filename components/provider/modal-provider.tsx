@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from 'react'
 import {
   CreateChannelModal,
   CreateServerModal,
+  DeleteServerModal,
   EditServerModal,
   InviteModal,
   LeaveServerModal,
@@ -28,6 +29,7 @@ export const ModalProvider = () => {
       <ManageMemberModal />
       <CreateChannelModal />
       <LeaveServerModal />
+      <DeleteServerModal />
     </Fragment>
   )
 }
