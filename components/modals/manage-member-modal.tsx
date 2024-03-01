@@ -1,6 +1,6 @@
 import { MemberRole } from '@prisma/client'
 import axios from 'axios'
-import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldCheck, ShieldQuestion } from 'lucide-react'
+import { Check, Gavel, Loader2, MoreVertical, ShieldQuestion } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
@@ -22,7 +22,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import UserAvatar from '@/components/user-avatar'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { getInitials } from '@/lib/function'
-import { RoleIcon } from '@/lib/role-icon'
+import RoleIcon from '@/lib/role-icon'
 import { EModalType } from '@/types/enums'
 import { IServerMemberProps, TServerAllProps } from '@/types/misc'
 
@@ -83,14 +83,16 @@ export const ManageMemberModal = () => {
             <DropdownMenuPortal>
               <DropdownMenuSubContent sideOffset={7}>
                 <DropdownMenuItem onClick={() => onRoleChange(member.id, MemberRole.GUEST)}>
-                  <Shield className="tw-w-4 tw-h-4 tw-mr-2" />
+                  {/* <Shield className="tw-w-4 tw-h-4 tw-mr-2" /> */}
+                  <RoleIcon role={MemberRole.GUEST} disableBg manageUi className="tw-mr-2" />
                   <span>Guest</span>
                   {/* to let us know the user role is guest */}
                   {member.role === MemberRole.GUEST && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
                 </DropdownMenuItem>
 
                 <DropdownMenuItem onClick={() => onRoleChange(member.id, MemberRole.MODERATOR)}>
-                  <ShieldCheck className="tw-w-4 tw-h-4 tw-mr-2" />
+                  {/* <ShieldCheck className="tw-w-4 tw-h-4 tw-mr-2" /> */}
+                  <RoleIcon role={MemberRole.MODERATOR} disableBg manageUi className="tw-mr-2" />
                   <span>Moderator</span>
                   {/* to let us know the user role is moderator */}
                   {member.role === MemberRole.MODERATOR && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
@@ -109,40 +111,6 @@ export const ManageMemberModal = () => {
       </DropdownMenu>
     )
   }
-  const MemberList = () => {
-    return (
-      <>
-        {server?.members?.map((member) => (
-          <div key={`${member.id}`} className="tw-flex tw-items-center tw-gap-x-2 tw-mb-6">
-            <UserAvatar src={member?.profile?.imageUrl} fallback={getInitials(member?.profile?.name)} />
-
-            <div className="tw-flex tw-flex-col tw-gap-y-1">
-              <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">
-                <span>{member?.profile?.name ?? ''}</span>
-                <ActionTooltip label={member?.role ?? ''} side="top" align="center">
-                  {RoleIcon[member.role]}
-                </ActionTooltip>
-              </div>
-
-              <p className="tw-text-sm tw-text-zinc-500">{member?.profile?.email ?? ''}</p>
-            </div>
-
-            {/* render this to non-admin member */}
-            {server.profileId !== member.profileId && loadingId !== member.id && (
-              <div className="tw-ml-auto">
-                <ManageMemberDropdown member={member} />
-              </div>
-            )}
-
-            {/* add spinner to let us know we are doing something to the member */}
-            {loadingId === member.id && (
-              <Loader2 className="tw-animate-spin tw-text-zinc-500 tw-w-4 tw-h-4 tw-ml-auto" />
-            )}
-          </div>
-        ))}
-      </>
-    )
-  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -156,9 +124,35 @@ export const ManageMemberModal = () => {
         </DialogHeader>
 
         <ScrollArea className="tw-mt-8 tw-max-h-[420px] tw-pr-6">
-          <MemberList />
+          {server?.members?.map((member) => (
+            <div key={`${member.id}`} className="tw-flex tw-items-center tw-gap-x-2 tw-mb-6">
+              <UserAvatar src={member?.profile?.imageUrl} fallback={getInitials(member?.profile?.name)} />
+
+              <div className="tw-flex tw-flex-col tw-gap-y-1">
+                <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">
+                  <span>{member?.profile?.name ?? ''}</span>
+                  <ActionTooltip label={member?.role ?? ''} side="top" align="center">
+                    <RoleIcon role={member.role} />
+                  </ActionTooltip>
+                </div>
+
+                <p className="tw-text-sm tw-text-zinc-500">{member?.profile?.email ?? ''}</p>
+              </div>
+
+              {/* render this to non-admin member */}
+              {server.profileId !== member.profileId && loadingId !== member.id && (
+                <div className="tw-ml-auto">
+                  <ManageMemberDropdown member={member} />
+                </div>
+              )}
+
+              {/* add spinner to let us know we are doing something to the member */}
+              {loadingId === member.id && (
+                <Loader2 className="tw-animate-spin tw-text-zinc-500 tw-w-4 tw-h-4 tw-ml-auto" />
+              )}
+            </div>
+          ))}
         </ScrollArea>
-        <div className="tw-p-6">hello member</div>
       </DialogContent>
     </Dialog>
   )
