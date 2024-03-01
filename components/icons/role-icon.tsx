@@ -17,14 +17,14 @@ const RoleSvgBg = {
 }
 
 export default function RoleIcon({ role, disableBg = false, manageUi = false, className }: RoleIconProps) {
-  const finalClassName = cn(disableBg ? '' : RoleSvgBg[role], className)
+  const finalClassName = cn(disableBg ? '' : RoleSvgBg[role], 'tw-w-4 tw-h-4', className)
 
   switch (role) {
     case MemberRole.ADMIN:
-      return <Crown className={`tw-w-4 tw-h-4 ${finalClassName}`} />
+      return <Crown className={finalClassName} />
     case MemberRole.MODERATOR:
-      return <ShieldCheck className={`tw-w-4 tw-h-4 ${finalClassName}`} />
+      return <ShieldCheck className={finalClassName} />
     case MemberRole.GUEST:
-      return manageUi ? <Shield className={`tw-w-4 tw-h-4 ${finalClassName}`} /> : null
+      return manageUi ? <Shield className={finalClassName} /> : null
   }
 }

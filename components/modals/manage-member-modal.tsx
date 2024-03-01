@@ -40,6 +40,32 @@ export const ManageMemberModal = () => {
 
   const isModalOpen = isOpen && type === EModalType.ManageMembers
 
+  const onKickMember = async (memberId: string) => {
+    try {
+      setLoadingId(memberId)
+      // call api to change the member role
+
+      // first, let's simplify our endpoint params and queries.
+      const fullEndpoint = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server?.id,
+        },
+      })
+
+      // let's update the user's role
+      const response = await axios.delete(fullEndpoint)
+
+      // then, refresh the component and update the state
+      router.refresh()
+      onOpen(EModalType.ManageMembers, { server: response.data })
+    } catch (error) {
+      console.log('[on_kick_member]', error)
+    } finally {
+      setLoadingId('')
+    }
+  }
+
   const onRoleChange = async (memberId: string, newRole: MemberRole) => {
     try {
       setLoadingId(memberId)
@@ -103,7 +129,7 @@ export const ManageMemberModal = () => {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem type="danger">
+          <DropdownMenuItem type="danger" onClick={() => onKickMember(member.id)}>
             <Gavel className="tw-w-4 tw-h-4 tw-mr-2" />
             <span>Kick</span>
           </DropdownMenuItem>
