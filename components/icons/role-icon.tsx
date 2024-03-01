@@ -1,7 +1,7 @@
 import { MemberRole } from '@prisma/client'
 import { Crown, Shield, ShieldCheck } from 'lucide-react'
 
-import { cn } from './utils'
+import { cn } from '@/lib/utils'
 
 interface RoleIconProps {
   role: MemberRole
@@ -12,7 +12,7 @@ interface RoleIconProps {
 
 const RoleSvgBg = {
   [MemberRole.ADMIN]: 'tw-text-rose-500',
-  [MemberRole.MODERATOR]: 'tw-text-emerald-500',
+  [MemberRole.MODERATOR]: 'tw-text-indigo-500',
   [MemberRole.GUEST]: '',
 }
 

@@ -6,6 +6,7 @@ import qs from 'query-string'
 import { useState } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
+import { RoleIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
   DropdownMenu,
@@ -22,7 +23,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import UserAvatar from '@/components/user-avatar'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { getInitials } from '@/lib/function'
-import RoleIcon from '@/lib/role-icon'
 import { EModalType } from '@/types/enums'
 import { IServerMemberProps, TServerAllProps } from '@/types/misc'
 
