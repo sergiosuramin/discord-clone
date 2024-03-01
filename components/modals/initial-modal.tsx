@@ -121,3 +121,5 @@ export const InitialModal = () => {
     </Dialog>
   )
 }
+
+export default InitialModal

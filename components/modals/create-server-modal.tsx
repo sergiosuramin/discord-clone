@@ -123,3 +123,5 @@ export const CreateServerModal = () => {
     </Dialog>
   )
 }
+
+export default CreateServerModal

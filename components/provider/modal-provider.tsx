@@ -2,10 +2,13 @@
 
 import { Fragment, useEffect, useState } from 'react'
 
-import { CreateServerModal } from '@/components/modals/create-server-modal'
-import { EditServerModal } from '@/components/modals/edit-server-modal'
-import { InviteModal } from '@/components/modals/invite-modal'
-import { ManageMemberModal } from '@/components/modals/manage-member-modal'
+import {
+  CreateChannelModal,
+  CreateServerModal,
+  EditServerModal,
+  InviteModal,
+  ManageMemberModal,
+} from '@/components/modals'
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -22,6 +25,7 @@ export const ModalProvider = () => {
       <InviteModal />
       <EditServerModal />
       <ManageMemberModal />
+      <CreateChannelModal />
     </Fragment>
   )
 }

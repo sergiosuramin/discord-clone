@@ -76,9 +76,9 @@ export const EditServerModal = () => {
     <Dialog open={isModalOpen} onOpenChange={onOpenDialogChange}>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
-          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your Customized Server</DialogTitle>
+          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Edit Your Server</DialogTitle>
           <DialogDescription className="tw-text-center tw-text-zinc-500">
-            Give your server a personality with a name and an image. You can always change it later.
+            Update your server personality. You can always change it again later.
           </DialogDescription>
         </DialogHeader>
 
@@ -132,3 +132,5 @@ export const EditServerModal = () => {
     </Dialog>
   )
 }
+
+export default EditServerModal

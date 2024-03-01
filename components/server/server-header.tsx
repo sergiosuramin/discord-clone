@@ -84,7 +84,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {(isAdmin || isModerator) && (
           <ServerMenuItem
             title="Create Channel"
-            onClick={() => alert('create channel')}
+            onClick={() => onOpen(EModalType.CreateChannel, { server })}
             icon={<PlusCircle className="tw-w-4 tw-h-4 tw-ml-auto" />}
           />
         )}

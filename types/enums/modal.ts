@@ -3,4 +3,5 @@ export enum EModalType {
   InviteToServer = 'invite',
   ServerSetting = 'editServer',
   ManageMembers = 'members',
+  CreateChannel = 'createChannel',
 }

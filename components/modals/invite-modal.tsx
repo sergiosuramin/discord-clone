@@ -87,3 +87,5 @@ export const InviteModal = () => {
     </Dialog>
   )
 }
+
+export default InviteModal

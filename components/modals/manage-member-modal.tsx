@@ -181,3 +181,5 @@ export const ManageMemberModal = () => {
     </Dialog>
   )
 }
+
+export default ManageMemberModal

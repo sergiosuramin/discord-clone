@@ -66,7 +66,6 @@ export async function PATCH(req: Request, { params }: ManageMemberPatchParamsPro
     const profile = await currentProfile()
     const { searchParams } = new URL(req.url)
     const { newRole } = await req.json()
-    console.log('lala-- role--', newRole)
 
     const serverId = searchParams.get('serverId')
 
