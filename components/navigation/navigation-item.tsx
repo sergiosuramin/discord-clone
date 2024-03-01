@@ -35,7 +35,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
           <div
             className={cn(
               'tw-relative tw-group tw-flex tw-mx-4 tw-w-[40px] tw-h-[40px] tw-rounded-[20px] group-hover:tw-rounded-[12px] tw-transition-all tw-overflow-hidden',
-              isCurrentServer && 'tw-bg-primary/10 tw-text-primary tw-rounded-[12px]'
+              isCurrentServer && 'group-hover:tw-bg-primary/10 tw-text-primary !tw-rounded-[12px]'
             )}
           >
             <Image fill src={imageUrl} alt="server-channels" />

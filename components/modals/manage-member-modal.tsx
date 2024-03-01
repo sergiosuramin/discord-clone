@@ -109,7 +109,6 @@ export const ManageMemberModal = () => {
             <DropdownMenuPortal>
               <DropdownMenuSubContent sideOffset={7}>
                 <DropdownMenuItem onClick={() => onRoleChange(member.id, MemberRole.GUEST)}>
-                  {/* <Shield className="tw-w-4 tw-h-4 tw-mr-2" /> */}
                   <RoleIcon role={MemberRole.GUEST} disableBg manageUi className="tw-mr-2" />
                   <span>Guest</span>
                   {/* to let us know the user role is guest */}
@@ -117,7 +116,6 @@ export const ManageMemberModal = () => {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem onClick={() => onRoleChange(member.id, MemberRole.MODERATOR)}>
-                  {/* <ShieldCheck className="tw-w-4 tw-h-4 tw-mr-2" /> */}
                   <RoleIcon role={MemberRole.MODERATOR} disableBg manageUi className="tw-mr-2" />
                   <span>Moderator</span>
                   {/* to let us know the user role is moderator */}
