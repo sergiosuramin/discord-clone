@@ -25,7 +25,7 @@ import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { getInitials } from '@/lib/function'
 import { EModalType } from '@/types/enums'
-import { IManageServerMemberProps, TServerAllProps } from '@/types/misc'
+import { TManageServerMemberProps, TServerAllProps } from '@/types/misc'
 
 interface IServerWithMembersWithProfile {
   server: TServerAllProps
@@ -93,7 +93,7 @@ export const ManageMemberModal = () => {
     }
   }
 
-  const ManageMemberDropdown = ({ member }: IManageServerMemberProps) => {
+  const ManageMemberDropdown = ({ member }: TManageServerMemberProps) => {
     const { isModerator, isGuest } = useCurrentRole(member.role)
 
     return (

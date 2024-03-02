@@ -5,9 +5,9 @@ import { RoleIcon } from '@/components/icons'
 import UserAvatar from '@/components/user-avatar'
 import { getInitials } from '@/lib/function'
 import { cn } from '@/lib/utils'
-import { IServerMemberProps } from '@/types/misc'
+import { TServerMemberProps } from '@/types/misc'
 
-const ServerMember = ({ member, server }: IServerMemberProps) => {
+const ServerMember = ({ member, server }: TServerMemberProps) => {
   console.log('lala-- server--', server)
   const params = useParams()
 

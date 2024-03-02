@@ -9,10 +9,6 @@ type TServerAllProps = Server & {
   members: ServerMember[]
 }
 
-interface IManageServerMemberProps {
-  member: ServerMember
-}
-
 type TServerExplorerDataProps = {
   icon: ReactNode
   name: string
@@ -41,7 +37,9 @@ interface IServerChannelProps {
   role?: MemberRole
 }
 
-interface IServerMemberProps {
+type TServerMemberProps = {
   member: ServerMember
   server: Server
 }
+
+type TManageServerMemberProps = Pick<TServerMemberProps, 'member'>
