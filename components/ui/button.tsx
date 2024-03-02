@@ -16,6 +16,8 @@ const buttonVariants = cva(
         ghost: 'hover:tw-bg-accent hover:tw-text-accent-foreground',
         link: 'tw-text-primary tw-underline-offset-4 hover:tw-underline',
         primary: 'tw-bg-indigo-500 hover:tw-bg-indigo-500/90 tw-text-white',
+        transparent:
+          'tw-bg-transparent tw-border-0 hover:tw-bg-accent hover:tw-text-accent-foreground focus-visible:!tw-ring-0 focus-visible:!tw-ring-offset-0',
       },
       size: {
         default: 'tw-h-10 tw-px-4 tw-py-2',

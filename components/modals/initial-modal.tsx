@@ -1,11 +1,9 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FileUpload from '@/components/file-upload'
 import { Button } from '@/components/ui/button'
@@ -19,17 +17,10 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { zr, createServerSchema } from '@/lib/zod'
+import { TCreateServerSchema } from '@/types/schema'
 
-const formSchema = z.object({
-  name: z.string().min(1, {
-    message: 'Server name is required',
-  }),
-  imageUrl: z.string().min(1, {
-    message: 'Server image is required',
-  }),
-})
-
-const InitialModal = () => {
+export const InitialModal = () => {
   const [mounted, setMounted] = useState<boolean>(false)
   const router = useRouter()
 
@@ -38,20 +29,26 @@ const InitialModal = () => {
   }, [])
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zr(createServerSchema),
     defaultValues: {
       name: '',
       imageUrl: '',
     },
   })
 
-  const isLoading = form.formState.isSubmitting
+  const { isSubmitting } = form.formState
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('lala-- values--', values)
-
+  const onSubmit = async (values: TCreateServerSchema) => {
     try {
-      await axios.post('/api/servers', values)
+      const res = await axios.post('/api/servers', values)
+
+      console.log('lala-- res--', res)
+
+      if (res.status === 200) {
+        alert('Create Server Success (todo: replace with toast)')
+      } else {
+        alert('Failed to Server (todo: replace with toast)')
+      }
 
       form.reset()
       router.refresh()
@@ -68,13 +65,14 @@ const InitialModal = () => {
     <Dialog open>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
-          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your Customized Server</DialogTitle>
+          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Your First Server!</DialogTitle>
           <DialogDescription className="tw-text-center tw-text-zinc-500">
             Give your server a personality with a name and an image. You can always change it later.
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
+          <span className="tw-text-center tw-text-xs tw-text-zinc-500/40 tw-mb-4">This action is mandatory.</span>
           <form onSubmit={form.handleSubmit(onSubmit)} className="tw-space-y-8">
             <div className="tw-space-y-8 tw-px-6">
               <div className="tw-flex tw-justify-center tw-items-center">
@@ -86,6 +84,7 @@ const InitialModal = () => {
                       <FormControl>
                         <FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -100,7 +99,7 @@ const InitialModal = () => {
 
                     <FormControl>
                       <Input
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                         className="tw-bg-zinc-300/50 tw-border-0 focus-visible:!tw-ring-0 tw-text-black focus-visible:!tw-ring-offset-0"
                         placeholder="Enter server name"
                         {...field}
@@ -113,7 +112,7 @@ const InitialModal = () => {
             </div>
 
             <DialogFooter className="tw-bg-gray-100 tw-px-6 tw-py-4">
-              <Button disabled={isLoading} variant="primary">
+              <Button disabled={isSubmitting} variant="primary">
                 Create
               </Button>
             </DialogFooter>

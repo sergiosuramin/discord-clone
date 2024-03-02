@@ -13,7 +13,9 @@ export const ActionTooltip = ({ label, children, side, align }: ActionTooltipPro
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipTrigger asChild className="tw-cursor-pointer">
+          {children}
+        </TooltipTrigger>
 
         <TooltipContent side={side} align={align}>
           <p className="tw-text-semibold tw-text-sm tw-capitalize">{label}</p>

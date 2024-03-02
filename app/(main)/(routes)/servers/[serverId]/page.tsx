@@ -1,5 +1,5 @@
 const ServerPage = () => {
-  return <div>Welcome!</div>
+  return <div>Chat room is in progress!</div>
 }
 
 export default ServerPage
