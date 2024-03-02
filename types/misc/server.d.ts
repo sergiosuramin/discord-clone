@@ -1,4 +1,4 @@
-import { Member, Profile, Server } from '@prisma/client'
+import { Channel, ChannelType, Member, MemberRole, Profile, Server } from '@prisma/client'
 import { ReactNode } from 'react'
 
 import { EServerExplorerType } from '@/types/enums'
@@ -9,7 +9,7 @@ type TServerAllProps = Server & {
   members: ServerMember[]
 }
 
-interface IServerMemberProps {
+interface IManageServerMemberProps {
   member: ServerMember
 }
 
@@ -25,4 +25,23 @@ interface IServerExplorerProps {
     type: EServerExplorerType
     data: TServerExplorerDataProps[] | undefined
   }[]
+}
+
+interface IServerSectionProps {
+  label: string
+  role?: MemberRole
+  sectionType: EServerExplorerType
+  channelType?: ChannelType
+  server?: TServerAllProps
+}
+
+interface IServerChannelProps {
+  channel: Channel
+  server: Server
+  role?: MemberRole
+}
+
+interface IServerMemberProps {
+  member: ServerMember
+  server: Server
 }

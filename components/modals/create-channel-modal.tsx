@@ -2,6 +2,7 @@ import { ChannelType } from '@prisma/client'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import qs from 'query-string'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
@@ -23,19 +24,30 @@ import { EModalType } from '@/types/enums'
 import { TCreateChannelSchema } from '@/types/schema'
 
 export const CreateChannelModal = () => {
-  const { isOpen, onClose, type } = useModal()
+  const { isOpen, onClose, type, data } = useModal()
   const router = useRouter()
   const params = useParams()
 
   const isModalOpen = isOpen && type === EModalType.CreateChannel
+  const { channelType } = data // potential props sent from create channel in server-sidebar + icon
 
   const form = useForm({
     resolver: zr(createChannelSchema),
     defaultValues: {
       name: '',
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   })
+
+  useEffect(() => {
+    // update the default values if channelType exists
+
+    if (channelType) {
+      form.setValue('type', channelType)
+    } else {
+      form.setValue('type', ChannelType.TEXT)
+    }
+  }, [channelType, form])
 
   const { isSubmitting } = form.formState
 

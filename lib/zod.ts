@@ -20,6 +20,9 @@ export const createChannelSchema = z.object({
     .min(1, {
       message: 'Channel name is required',
     })
+    .max(15, {
+      message: 'Maximum character length is 15',
+    })
     .refine((name) => name !== 'general', {
       message: "Channel name cannot be 'general'",
     }),

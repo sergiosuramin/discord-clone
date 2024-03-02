@@ -1,4 +1,4 @@
-import { Server } from '@prisma/client'
+import { ChannelType, Server } from '@prisma/client'
 
 // value must match with EModalType
 type TModalType =
@@ -12,6 +12,7 @@ type TModalType =
 
 interface IModalData {
   server?: Server
+  channelType?: ChannelType
 }
 
 interface IModalStore {

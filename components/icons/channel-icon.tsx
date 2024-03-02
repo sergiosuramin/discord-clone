@@ -3,12 +3,12 @@ import { Hash, Mic, Video } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-interface ExplorerIconProps {
+interface ChannelIconProps {
   channelType: ChannelType
   className?: string
 }
 
-export default function ExplorerIcon({ channelType, className }: ExplorerIconProps) {
+export default function ChannelIcon({ channelType, className }: ChannelIconProps) {
   const finalClassName = cn('tw-w-4 tw-h-4', className)
 
   switch (channelType) {
