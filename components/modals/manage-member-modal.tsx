@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
 import { RoleIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
@@ -21,10 +20,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import UserAvatar from '@/components/user-avatar'
+import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { getInitials } from '@/lib/function'
 import { EModalType } from '@/types/enums'
-import { IServerMemberProps, TServerAllProps } from '@/types/misc'
+import { TManageServerMemberProps, TServerAllProps } from '@/types/misc'
 
 interface IServerWithMembersWithProfile {
   server: TServerAllProps
@@ -92,7 +92,9 @@ export const ManageMemberModal = () => {
     }
   }
 
-  const ManageMemberDropdown = ({ member }: IServerMemberProps) => {
+  const ManageMemberDropdown = ({ member }: TManageServerMemberProps) => {
+    const { isModerator, isGuest } = useCurrentRole(member.role)
+
     return (
       <DropdownMenu>
         <DropdownMenuTrigger className="tw-cursor-pointer">
@@ -112,14 +114,14 @@ export const ManageMemberModal = () => {
                   <RoleIcon role={MemberRole.GUEST} disableBg manageUi className="tw-mr-2" />
                   <span>Guest</span>
                   {/* to let us know the user role is guest */}
-                  {member.role === MemberRole.GUEST && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
+                  {isGuest && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
                 </DropdownMenuItem>
 
                 <DropdownMenuItem onClick={() => onRoleChange(member.id, MemberRole.MODERATOR)}>
                   <RoleIcon role={MemberRole.MODERATOR} disableBg manageUi className="tw-mr-2" />
                   <span>Moderator</span>
                   {/* to let us know the user role is moderator */}
-                  {member.role === MemberRole.MODERATOR && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
+                  {isModerator && <Check className="tw-w-4 tw-h-4 tw-ml-auto" />}
                 </DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
@@ -155,9 +157,7 @@ export const ManageMemberModal = () => {
               <div className="tw-flex tw-flex-col tw-gap-y-1">
                 <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">
                   <span>{member?.profile?.name ?? ''}</span>
-                  <ActionTooltip label={member?.role ?? ''} side="top" align="center">
-                    <RoleIcon role={member.role} />
-                  </ActionTooltip>
+                  <RoleIcon role={member.role} />
                 </div>
 
                 <p className="tw-text-sm tw-text-zinc-500">{member?.profile?.email ?? ''}</p>

@@ -3,6 +3,8 @@ import { Crown, Shield, ShieldCheck } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
+import { ActionTooltip } from '../action-tooltip'
+
 interface RoleIconProps {
   role: MemberRole
   className?: string
@@ -17,14 +19,23 @@ const RoleSvgBg = {
 }
 
 export default function RoleIcon({ role, disableBg = false, manageUi = false, className }: RoleIconProps) {
-  const finalClassName = cn(disableBg ? '' : RoleSvgBg[role], 'tw-w-4 tw-h-4', className)
+  const finalClassName = cn({ [RoleSvgBg[role]]: !disableBg }, 'tw-w-4 tw-h-4', className)
 
-  switch (role) {
-    case MemberRole.ADMIN:
-      return <Crown className={finalClassName} />
-    case MemberRole.MODERATOR:
-      return <ShieldCheck className={finalClassName} />
-    case MemberRole.GUEST:
-      return manageUi ? <Shield className={finalClassName} /> : null
+  const roleIcons = {
+    [MemberRole.ADMIN]: <Crown className={finalClassName} />,
+    [MemberRole.MODERATOR]: <ShieldCheck className={finalClassName} />,
+    [MemberRole.GUEST]: manageUi ? <Shield className={finalClassName} /> : null,
   }
+
+  const icon = roleIcons[role] ?? null
+
+  if (!icon) return null
+
+  return manageUi ? (
+    <>{icon}</>
+  ) : (
+    <ActionTooltip label={role} side="top">
+      {icon}
+    </ActionTooltip>
+  )
 }

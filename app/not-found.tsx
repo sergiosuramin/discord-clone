@@ -1,11 +1,11 @@
 'use client'
 import { XOctagon } from 'lucide-react'
 import Head from 'next/head'
-import Link from 'next/link'
 
 const NotFound = () => (
   <div className="tw-w-screen tw-h-screen tw-flex tw-justify-center tw-items-center">
     <Head>
+      {/* Remove the preload link that was causing the warning */}
       <title>404 Not Found</title>
       <meta name="description" content="Oops! Looks like you're lost or the page is not found." />
     </Head>
@@ -17,9 +17,9 @@ const NotFound = () => (
       <h1 className="tw-font-semibold">Oops! Looks like you&apos;re lost.</h1>
       <h3>Let&apos;s go back to our app</h3>
 
-      <Link href="/" className="tw-bg-indigo-500 hover:tw-bg-indigo-500/90 tw-text-white tw-rounded-md tw-px-4 tw-py-2">
+      <a href="/" className="tw-bg-indigo-500 hover:tw-bg-indigo-500/90 tw-text-white tw-rounded-md tw-px-4 tw-py-2">
         Go Back
-      </Link>
+      </a>
     </div>
   </div>
 )

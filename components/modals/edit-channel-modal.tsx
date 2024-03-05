@@ -1,19 +1,12 @@
 import { ChannelType } from '@prisma/client'
 import axios from 'axios'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -23,31 +16,29 @@ import { zr, createChannelSchema } from '@/lib/zod'
 import { EModalType } from '@/types/enums'
 import { TCreateChannelSchema } from '@/types/schema'
 
-export const CreateChannelModal = () => {
+export const EditChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal()
   const router = useRouter()
-  const params = useParams()
 
-  const isModalOpen = isOpen && type === EModalType.CreateChannel
-  const { channelType } = data // potential props sent from create channel in server-sidebar + icon
+  const isModalOpen = isOpen && type === EModalType.EditChannel
+  const { channel, server } = data // potential props sent from edit channel in server-sidebar edit icon
 
   const form = useForm({
     resolver: zr(createChannelSchema),
     defaultValues: {
       name: '',
-      type: channelType || ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   })
 
   useEffect(() => {
-    // update the default values if channelType exists
-
-    if (channelType) {
-      form.setValue('type', channelType)
-    } else {
-      form.setValue('type', ChannelType.TEXT)
+    // update the default values if channel exists
+    if (channel) {
+      form.setValue('name', channel.name)
+      form.setValue('type', channel.type)
     }
-  }, [channelType, form])
+    // isOpen is required, so when we re-open the modal from the same channel, useEffect will be triggered
+  }, [isOpen, channel, form])
 
   const { isSubmitting } = form.formState
 
@@ -55,18 +46,18 @@ export const CreateChannelModal = () => {
     try {
       // first, let's simplify our endpoint params and queries.
       const fullEndpoint = qs.stringifyUrl({
-        url: '/api/channels',
+        url: `/api/channels/${channel.id}`,
         query: {
-          serverId: params?.serverId,
+          serverId: server?.id,
         },
       })
 
-      const res = await axios.post(fullEndpoint, values)
+      const res = await axios.patch(fullEndpoint, values)
 
-      console.log('lala-- res-- create channel--', res)
+      console.log('lala-- res-- edit channel--', res)
 
       if (res.status === 200) {
-        alert('Create channel Success (todo: replace with toast)')
+        alert('edit channel Success (todo: replace with toast)')
       } else {
         alert('Failed to channel (todo: replace with toast)')
       }
@@ -74,7 +65,7 @@ export const CreateChannelModal = () => {
       onOpenDialogChange()
       router.refresh()
     } catch (error) {
-      console.log('lala-- <submit create channel>--', error)
+      console.log('lala-- <submit edit channel>--', error)
     }
   }
 
@@ -91,10 +82,7 @@ export const CreateChannelModal = () => {
     <Dialog open={isModalOpen} onOpenChange={onOpenDialogChange}>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
-          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Create Channel</DialogTitle>
-          <DialogDescription className="tw-text-center tw-text-zinc-500">
-            Create a new text, audio or video channel to your server.
-          </DialogDescription>
+          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Edit Channel</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -155,7 +143,7 @@ export const CreateChannelModal = () => {
 
             <DialogFooter className="tw-bg-gray-100 tw-px-6 tw-py-4">
               <Button disabled={isSubmitting} variant="primary">
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
@@ -165,4 +153,4 @@ export const CreateChannelModal = () => {
   )
 }
 
-export default CreateChannelModal
+export default EditChannelModal

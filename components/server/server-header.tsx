@@ -112,3 +112,5 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     </DropdownMenu>
   )
 }
+
+export default ServerHeader
