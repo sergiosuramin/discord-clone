@@ -32,6 +32,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
           />
 
           {/* server image */}
+
           <div
             className={cn(
               'tw-relative tw-group tw-flex tw-mx-4 tw-w-[40px] tw-h-[40px] tw-rounded-[20px] group-hover:tw-rounded-[12px] tw-transition-all tw-overflow-hidden',
