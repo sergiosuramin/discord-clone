@@ -44,6 +44,8 @@ export const LeaveServerModal = () => {
     } catch (error) {
       console.log('<leave_server>', error)
     }
+
+    setIsLoading(false)
   }
 
   return (

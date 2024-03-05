@@ -6,4 +6,6 @@ export enum EModalType {
   CreateChannel = 'createChannel',
   LeaveServer = 'leaveServer',
   DeleteServer = 'deleteServer',
+  DeleteChannel = 'deleteChannel',
+  EditChannel = 'editChannel',
 }

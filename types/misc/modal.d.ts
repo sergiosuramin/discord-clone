@@ -1,4 +1,4 @@
-import { ChannelType, Server } from '@prisma/client'
+import { Channel, ChannelType, Server } from '@prisma/client'
 
 // value must match with EModalType
 type TModalType =
@@ -9,9 +9,12 @@ type TModalType =
   | 'createChannel'
   | 'leaveServer'
   | 'deleteServer'
+  | 'deleteChannel'
+  | 'editChannel'
 
 interface IModalData {
   server?: Server
+  channel?: Channel
   channelType?: ChannelType
 }
 

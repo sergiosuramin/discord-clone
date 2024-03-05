@@ -6,16 +6,18 @@ import { useParams } from 'next/navigation'
 import { ActionTooltip } from '@/components/action-tooltip'
 import { ChannelIcon } from '@/components/icons'
 import { useCurrentRole } from '@/hooks/misc'
+import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { cn } from '@/lib/utils'
+import { EModalType } from '@/types/enums'
 import { IServerChannelProps } from '@/types/misc'
 
 const ServerChannel = ({ channel, server, role }: IServerChannelProps) => {
-  console.log('lala-- server-- channel--', server)
+  const { onOpen } = useModal()
   const params = useParams()
   const { isGuest } = useCurrentRole(role)
 
   const isCurrentChannel = params?.channelId === channel.id
-  const isChannelLocked = channel.name === 'General'
+  const isChannelLocked = channel.name === 'general'
 
   return (
     <button
@@ -42,10 +44,16 @@ const ServerChannel = ({ channel, server, role }: IServerChannelProps) => {
       {!isChannelLocked && !isGuest && (
         <div className="tw-flex tw-items-center tw-gap-x-2 tw-ml-auto">
           <ActionTooltip label="Edit" side="top">
-            <Edit className="tw-hidden group-hover:tw-block tw-w-4 tw-h-4 tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition" />
+            <Edit
+              className="tw-hidden group-hover:tw-block tw-w-4 tw-h-4 tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition"
+              onClick={() => onOpen(EModalType.EditChannel, { server, channel })}
+            />
           </ActionTooltip>
           <ActionTooltip label="Delete" side="top">
-            <Trash className="tw-hidden group-hover:tw-block tw-w-4 tw-h-4 tw-text-rose-500 dark:tw-text-rose-400 hover:tw-text-rose-600 dark:hover:tw-text-rose-300 tw-transition" />
+            <Trash
+              className="tw-hidden group-hover:tw-block tw-w-4 tw-h-4 tw-text-rose-500 dark:tw-text-rose-400 hover:tw-text-rose-600 dark:hover:tw-text-rose-300 tw-transition"
+              onClick={() => onOpen(EModalType.DeleteChannel, { server, channel })}
+            />
           </ActionTooltip>
         </div>
       )}
