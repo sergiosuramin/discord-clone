@@ -10,7 +10,10 @@
 - Typescript
 - Shadcn UI
 - Tailwind CSS
-- Others: To be written here soon
+- Clerk
+- Prisma
+- Socket.io
+- postgresql
 
 ### 2. Farewell to Inconsistent Coding Style!
 
@@ -19,13 +22,9 @@
 - ✔️ Prettier
 - ✔️ VS Code formatter
 
-## Plan
-
-🟢 Start in Mid/End of February 2024.
-
 ## Status
 
-⌛ In Progress
+⌛🟢 In Progress
 
 ---
 
@@ -45,7 +44,7 @@ npm run dev
 
 ## Deployment
 
-⌛ No live link available yet (in development)
+⌛ No live URL available yet (in development)
 
 ## Commit Message
 

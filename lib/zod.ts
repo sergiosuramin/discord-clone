@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ChannelType } from '@prisma/client'
 import * as z from 'zod'
 
+import { ELockedChannelName } from '@/types/enums'
+
 export { zodResolver as zr }
 
 export const createServerSchema = z.object({
@@ -20,8 +22,11 @@ export const createChannelSchema = z.object({
     .min(1, {
       message: 'Channel name is required',
     })
-    .refine((name) => name !== 'general', {
-      message: "Channel name cannot be 'general'",
+    .max(15, {
+      message: 'Maximum character length is 15',
+    })
+    .refine((name) => name !== ELockedChannelName.general, {
+      message: `Channel name cannot be '${ELockedChannelName.general}'`,
     }),
   type: z.nativeEnum(ChannelType),
 })

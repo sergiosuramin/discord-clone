@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Eraser } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import qs from 'query-string'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -15,12 +16,12 @@ import {
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { EModalType } from '@/types/enums'
 
-export const DeleteServerModal = () => {
+export const DeleteChannelModal = () => {
   const router = useRouter()
   const { isOpen, onClose, type, data } = useModal()
-  const { server } = data
+  const { server, channel } = data
 
-  const isModalOpen = isOpen && type === EModalType.DeleteServer
+  const isModalOpen = isOpen && type === EModalType.DeleteChannel
 
   const [isloading, setIsLoading] = useState<boolean>(false)
 
@@ -28,21 +29,29 @@ export const DeleteServerModal = () => {
     try {
       setIsLoading(true)
 
-      const res = await axios.delete(`/api/servers/${server?.id}`)
+      // first, let's simplify our endpoint params and queries.
+      const fullEndpoint = qs.stringifyUrl({
+        url: `/api/channels/${channel?.id}`,
+        query: {
+          serverId: server?.id,
+        },
+      })
 
-      console.log('lala-- res Delete--', res)
+      const res = await axios.delete(fullEndpoint)
+
+      console.log('lala-- res Delete channel--', res)
 
       if (res.status === 200) {
-        alert('Delete Server Success (todo: replace with toast)')
+        alert('Delete Channel Success (todo: replace with toast)')
       } else {
-        alert('Failed to Delete Server (todo: replace with toast)')
+        alert('Failed to Delete Channel (todo: replace with toast)')
       }
 
       onClose()
       router.refresh()
-      router.push('/')
+      router.push(`/servers/${server?.id}`) // go back to server's root
     } catch (error) {
-      console.log('<delete_server>', error)
+      console.log('<delete_channel>', error)
     }
 
     setIsLoading(false)
@@ -52,16 +61,16 @@ export const DeleteServerModal = () => {
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="tw-bg-white tw-text-black !tw-p-0 tw-overflow-hidden">
         <DialogHeader className="tw-pt-8 tw-px-6">
-          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Delete Server</DialogTitle>
-          <DialogDescription className="tw-text-center tw-text-zinc-500">
-            Are you sure you want to delete <span className="tw-font-semibold tw-text-indigo-500">{server?.name}</span>?
-          </DialogDescription>
+          <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Delete Channel</DialogTitle>
+          <DialogDescription className="tw-text-center tw-text-zinc-500">Are you sure?</DialogDescription>
         </DialogHeader>
 
         <div className="tw-p-6 tw-flex tw-flex-col tw-items-center tw-gap-y-4">
           <Eraser className="tw-text-destructive dark:tw-text-rose-500" size={72} />
-          <span className="tw-text-muted-foreground tw-text-xs tw-text-center">
-            This action will remove the server permanently and cannot be undone.
+
+          <span className="tw-font-semibold tw-text-indigo-500">
+            #{channel?.name}{' '}
+            <span className="tw-font-normal tw-text-muted-foreground tw-text-center">will be permanently deleted.</span>
           </span>
         </div>
 
@@ -74,7 +83,7 @@ export const DeleteServerModal = () => {
             <Button
               disabled={isloading}
               variant="destructive"
-              className="dark:tw-text-rose-500"
+              className="dark:tw-bg-rose-500"
               onClick={() => onDelete()}
             >
               Confirm
@@ -86,4 +95,4 @@ export const DeleteServerModal = () => {
   )
 }
 
-export default DeleteServerModal
+export default DeleteChannelModal

@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
+import { ELockedChannelName } from '@/types/enums'
 
 export async function POST(req: Request) {
   try {
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
     }
 
     // BE protection to prevent user create channel with "general" name
-    if (name === 'general') {
+    if (name === ELockedChannelName.general) {
       return new NextResponse('Name cannot be <general>', { status: 400 })
     }
 
