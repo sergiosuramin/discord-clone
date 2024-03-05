@@ -25,5 +25,6 @@
     "strict": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ignorePatterns": ["**/lint-staged.config.js", "**/next.config.js", "**/postcss.config.js"]
 }

@@ -42,10 +42,10 @@ export const ServerExplorer = ({ data }: IServerExplorerProps) => {
     setOpen(false)
 
     if (type === EServerExplorerType.Member) {
-      router.push(`/server/${params?.serverId}/conversation/${id}`)
+      router.push(`/servers/${params?.serverId}/chat/${id}`)
     }
     if (type === EServerExplorerType.Channel) {
-      return router.push(`/server/${params?.serverId}/channels/${id}`)
+      return router.push(`/servers/${params?.serverId}/channels/${id}`)
     }
   }
 
