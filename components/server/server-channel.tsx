@@ -8,7 +8,7 @@ import { ChannelIcon } from '@/components/icons'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { cn } from '@/lib/utils'
-import { EModalType } from '@/types/enums'
+import { ELockedChannelName, EModalType } from '@/types/enums'
 import { IServerChannelProps } from '@/types/misc'
 
 const ServerChannel = ({ channel, server, role }: IServerChannelProps) => {
@@ -17,7 +17,7 @@ const ServerChannel = ({ channel, server, role }: IServerChannelProps) => {
   const { isGuest } = useCurrentRole(role)
 
   const isCurrentChannel = params?.channelId === channel.id
-  const isChannelLocked = channel.name === 'general'
+  const isChannelLocked = channel.name === ELockedChannelName.general
 
   return (
     <button

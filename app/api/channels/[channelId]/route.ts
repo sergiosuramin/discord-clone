@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
+import { ELockedChannelName } from '@/types/enums'
 
 type DeleteChannelParamsProps = {
   params: {
@@ -29,7 +30,7 @@ export async function PATCH(req: Request, { params }: DeleteChannelParamsProps) 
       return new NextResponse('Channel ID is missing', { status: 400 })
     }
 
-    if (name === 'general') {
+    if (name === ELockedChannelName.general) {
       return new NextResponse('Name cannot be <general>', { status: 400 })
     }
 
@@ -51,7 +52,7 @@ export async function PATCH(req: Request, { params }: DeleteChannelParamsProps) 
             where: {
               id: params.channelId,
               NOT: {
-                name: 'general',
+                name: ELockedChannelName.general,
               },
             },
             data: { name, type },
@@ -102,7 +103,7 @@ export async function DELETE(req: Request, { params }: DeleteChannelParamsProps)
           delete: {
             id: params.channelId,
             name: {
-              not: 'general',
+              not: ELockedChannelName.general,
             },
           },
         },
