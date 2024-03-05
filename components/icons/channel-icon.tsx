@@ -9,14 +9,13 @@ interface ChannelIconProps {
 }
 
 export default function ChannelIcon({ channelType, className }: ChannelIconProps) {
-  const finalClassName = cn('tw-w-4 tw-h-4', className)
+  const iconProps = { className: cn('tw-w-4 tw-h-4', className) }
 
-  switch (channelType) {
-    case ChannelType.TEXT:
-      return <Hash className={finalClassName} />
-    case ChannelType.AUDIO:
-      return <Mic className={finalClassName} />
-    case ChannelType.VIDEO:
-      return <Video className={finalClassName} />
+  const icons = {
+    [ChannelType.TEXT]: <Hash {...iconProps} />,
+    [ChannelType.AUDIO]: <Mic {...iconProps} />,
+    [ChannelType.VIDEO]: <Video {...iconProps} />,
   }
+
+  return icons[channelType] || null
 }

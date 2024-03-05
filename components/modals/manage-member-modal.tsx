@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
 import { RoleIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
@@ -158,9 +157,7 @@ export const ManageMemberModal = () => {
               <div className="tw-flex tw-flex-col tw-gap-y-1">
                 <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">
                   <span>{member?.profile?.name ?? ''}</span>
-                  <ActionTooltip label={member?.role ?? ''} side="top" align="center">
-                    <RoleIcon role={member.role} />
-                  </ActionTooltip>
+                  <RoleIcon role={member.role} />
                 </div>
 
                 <p className="tw-text-sm tw-text-zinc-500">{member?.profile?.email ?? ''}</p>
