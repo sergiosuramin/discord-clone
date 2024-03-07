@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { TServerMemberProps } from '@/types/misc'
 
 const ServerMember = ({ member, server }: TServerMemberProps) => {
-  console.log('lala-- server--', server)
+  console.log('lala-- server [still unused props]--', server)
   const router = useRouter()
   const params = useParams()
 

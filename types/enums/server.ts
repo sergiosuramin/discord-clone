@@ -5,7 +5,7 @@ export enum EServerExplorerType {
 
 export enum EChatHeaderType {
   Channel = 'channel',
-  Chat = 'chat',
+  DirectMessage = 'chat',
 }
 
 export enum ELockedChannelName {

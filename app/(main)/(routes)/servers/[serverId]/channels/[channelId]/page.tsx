@@ -1,3 +1,5 @@
+/**THIS IS SERVER'S CHANNEL TEXT/AUDIO/VIDEO CHAT PAGE */
+
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
