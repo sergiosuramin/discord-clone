@@ -43,6 +43,7 @@ body,
     /* below: custom defined */
     --server: 240, 6%, 90%;
     --channel: 220, 13%, 95%;
+    --chat-header: 0 0% 100%;
   }
 
   .dark {
@@ -77,6 +78,7 @@ body,
     /* below: custom defined */
     --server: 225, 6%, 13%;
     --channel: 220, 7%, 18%;
+    --chat-header: 223, 7%, 21%;
   }
 }
 

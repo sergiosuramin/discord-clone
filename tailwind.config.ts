@@ -55,6 +55,10 @@ const config = {
           DEFAULT: 'hsl(var(--channel))',
           foreground: 'hsl(var(--primary-foreground))',
         },
+        chatHeader: {
+          DEFAULT: 'hsl(var(--chat-header))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
