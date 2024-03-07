@@ -12,13 +12,13 @@ interface MobileToggleProps {
 const MobileToggle = ({ serverId }: MobileToggleProps) => {
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="tw-mr-2">
         <Button variant="ghost" size="icon" className="md:tw-hidden">
           <Menu />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="tw-flex !tw-p-0 tw-gap-0">
+      <SheetContent side="left" className="tw-flex !tw-p-0 !tw-gap-0">
         <div className="tw-w-[72px]">
           <NavigationSidebar />
         </div>
