@@ -1,0 +1,10 @@
+This pages folder is used for setting up socket.io
+
+Next.js 13 is still an early transition of pages router and app router.
+
+app router in next.js 13 still have problem with socket.io.
+
+So, we are doing it in pages folder, which is still widely supported in next.js
+
+discussion:
+https://github.com/vercel/next.js/discussions/47782

@@ -1,5 +1,6 @@
 import { Hash } from 'lucide-react'
 
+import SocketIndicator from '@/components/feature/socket-indicator'
 import MobileToggle from '@/components/mobile-toggle'
 import UserAvatar from '@/components/user-avatar'
 import { getInitials } from '@/lib/function'
@@ -28,6 +29,10 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
       )}
 
       <p className="tw-font-semibold tw-text-foreground">{name}</p>
+
+      <div className="tw-ml-auto tw-flex tw-items-center">
+        <SocketIndicator />
+      </div>
     </div>
   )
 }
