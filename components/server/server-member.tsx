@@ -1,8 +1,8 @@
 'use client'
 import { useParams, useRouter } from 'next/navigation'
 
+import UserAvatar from '@/components/feature/user-avatar'
 import { RoleIcon } from '@/components/icons'
-import UserAvatar from '@/components/user-avatar'
 import { getInitials } from '@/lib/function'
 import { cn } from '@/lib/utils'
 import { TServerMemberProps } from '@/types/misc'

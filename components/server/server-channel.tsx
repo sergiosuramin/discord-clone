@@ -3,7 +3,7 @@
 import { Edit, Lock, Trash } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 
-import { ActionTooltip } from '@/components/action-tooltip'
+import { ActionTooltip } from '@/components/feature/action-tooltip'
 import { ChannelIcon } from '@/components/icons'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'

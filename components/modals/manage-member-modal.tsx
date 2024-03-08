@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
 
+import UserAvatar from '@/components/feature/user-avatar'
 import { RoleIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
@@ -19,7 +20,6 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import UserAvatar from '@/components/user-avatar'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { getInitials } from '@/lib/function'

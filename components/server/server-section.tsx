@@ -2,7 +2,7 @@
 
 import { Plus, Settings } from 'lucide-react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
+import { ActionTooltip } from '@/components/feature/action-tooltip'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { EModalType, EServerExplorerType } from '@/types/enums'

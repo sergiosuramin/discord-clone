@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-import FileUpload from '@/components/file-upload'
+import FileUpload from '@/components/feature/file-upload'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,

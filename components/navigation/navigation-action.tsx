@@ -2,7 +2,7 @@
 
 import { Plus } from 'lucide-react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
+import { ActionTooltip } from '@/components/feature/action-tooltip'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { EModalType } from '@/types/enums'
 

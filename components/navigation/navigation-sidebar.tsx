@@ -1,7 +1,7 @@
 import { UserButton } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ModeToggle } from '@/components/mode-toggle'
+import { ModeToggle } from '@/components/feature/mode-toggle'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { currentProfile } from '@/lib/current-profile'
