@@ -8,14 +8,14 @@ const SocketIndicator = () => {
 
   if (!isConnected) {
     return (
-      <Badge variant="outline" className="tw-bg-yellow-600 tw-text-white tw-border-none">
-        Server Offline
+      <Badge variant="outline" className="tw-bg-yellow-600 tw-text-white tw-border-none tw-truncate tw-ml-2">
+        Polling connection...
       </Badge>
     )
   }
 
   return (
-    <Badge variant="outline" className="tw-bg-emerald-600 tw-text-white tw-border-none">
+    <Badge variant="outline" className="tw-bg-emerald-600 tw-text-white tw-border-none tw-truncate tw-ml-2">
       Server Online
     </Badge>
   )

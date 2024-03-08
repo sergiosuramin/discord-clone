@@ -28,7 +28,7 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
         <UserAvatar src={imageUrl} fallback={getInitials(name)} className="tw-w-8 tw-h-8 md:tw-w-8 md:tw-h-8 tw-mr-2" />
       )}
 
-      <p className="tw-font-semibold tw-text-foreground">{name}</p>
+      <p className="tw-font-semibold tw-text-foreground tw-truncate">{name}</p>
 
       <div className="tw-ml-auto tw-flex tw-items-center">
         <SocketIndicator />
