@@ -25,14 +25,14 @@ const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
 
       <PopoverContent
         side="right"
-        sideOffset={40}
-        alignOffset={0}
+        sideOffset={10}
         className="tw-bg-transparent tw-border-none tw-shadow-none tw-drop-shadow-none tw-mb-16"
       >
         <Picker
           className="tw-max-w-[350px]"
           theme={resolvedTheme}
           data={EmojiData}
+          perLine={8}
           onEmojiSelect={(emoji: SelectedEmojiProps) => onChange(emoji.native)}
         />
       </PopoverContent>
