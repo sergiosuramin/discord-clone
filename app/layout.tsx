@@ -4,8 +4,10 @@ import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import { ModalProvider } from '@/components/provider/modal-provider'
-import { ThemeProvider } from '@/components/provider/theme-provider'
+// import { ModalProvider } from '@/components/provider/modal-provider'
+// import { SocketProvider } from '@/components/provider/socket-provider'
+// import { ThemeProvider } from '@/components/provider/theme-provider'
+import { ModalProvider, SocketProvider, ThemeProvider } from '@/components/provider'
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -20,8 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="discord-clone-theme">
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>

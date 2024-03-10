@@ -3,7 +3,8 @@
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ChatHeader } from '@/components/chat'
+import { ChatHeader, ChatInput } from '@/components/chat'
+import { socketMessagePath } from '@/lib/constant'
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
 import { EChatHeaderType } from '@/types/enums'
@@ -45,6 +46,18 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   return (
     <div className="tw-bg-chatHeader tw-flex tw-flex-col tw-h-full">
       <ChatHeader name={channel.name} serverId={params.serverId} type={EChatHeaderType.Channel} />
+
+      <div className="tw-flex-1 tw-bg-blue-500/50">messages will be here</div>
+
+      <ChatInput
+        name={channel.name}
+        type={EChatHeaderType.Channel}
+        apiUrl={socketMessagePath}
+        query={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
+      />
     </div>
   )
 }

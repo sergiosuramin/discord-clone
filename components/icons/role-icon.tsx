@@ -1,9 +1,8 @@
 import { MemberRole } from '@prisma/client'
 import { Crown, Shield, ShieldCheck } from 'lucide-react'
 
+import { ActionTooltip } from '@/components/feature/action-tooltip'
 import { cn } from '@/lib/utils'
-
-import { ActionTooltip } from '../action-tooltip'
 
 interface RoleIconProps {
   role: MemberRole

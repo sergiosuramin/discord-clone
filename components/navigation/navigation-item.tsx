@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { ActionTooltip } from '@/components/action-tooltip'
+import { ActionTooltip } from '@/components/feature/action-tooltip'
 import { useCurrentServer } from '@/hooks/misc'
 import { cn } from '@/lib/utils'
 

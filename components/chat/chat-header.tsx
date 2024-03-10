@@ -1,7 +1,8 @@
 import { Hash } from 'lucide-react'
 
-import MobileToggle from '@/components/mobile-toggle'
-import UserAvatar from '@/components/user-avatar'
+import MobileToggle from '@/components/feature/mobile-toggle'
+import SocketIndicator from '@/components/feature/socket-indicator'
+import UserAvatar from '@/components/feature/user-avatar'
 import { getInitials } from '@/lib/function'
 import { EChatHeaderType } from '@/types/enums'
 
@@ -27,7 +28,11 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
         <UserAvatar src={imageUrl} fallback={getInitials(name)} className="tw-w-8 tw-h-8 md:tw-w-8 md:tw-h-8 tw-mr-2" />
       )}
 
-      <p className="tw-font-semibold tw-text-foreground">{name}</p>
+      <p className="tw-font-semibold tw-text-foreground tw-truncate">{name}</p>
+
+      <div className="tw-ml-auto tw-flex tw-items-center">
+        <SocketIndicator />
+      </div>
     </div>
   )
 }

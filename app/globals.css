@@ -8,6 +8,21 @@ body,
   height: 100%;
 }
 
+/* all browser scrollbar, except firefox */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8c8c8c;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 4px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -41,8 +56,11 @@ body,
     --radius: 0.5rem;
 
     /* below: custom defined */
+    /* #e4e4e7 */
     --server: 240, 6%, 90%;
+    /* #f1f2f4 */
     --channel: 220, 13%, 95%;
+    /* #000 */
     --chat-header: 0 0% 100%;
   }
 
@@ -76,8 +94,11 @@ body,
     --ring: 24 5.7% 82.9%;
 
     /* below: custom defined */
+    /* #1f2023 */
     --server: 225, 6%, 13%;
+    /* #2b2d31 */
     --channel: 220, 7%, 18%;
+    /* #313338 */
     --chat-header: 223, 7%, 21%;
   }
 }
