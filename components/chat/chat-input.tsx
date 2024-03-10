@@ -1,9 +1,11 @@
 'use client'
 import axios from 'axios'
-import { Plus, SendHorizonal, Smile } from 'lucide-react'
+import { Plus, SendHorizonal } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useForm } from 'react-hook-form'
 
+import EmojiPicker from '@/components/feature/emoji-picker'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
@@ -20,6 +22,7 @@ interface ChatInputProps {
 }
 
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+  const router = useRouter()
   console.log('lala-- unusued props now in chat input--', name, type)
   const { onOpen } = useModal()
   const form = useForm<TChatInputSchema>({
@@ -32,17 +35,16 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const isSubmitting = form.formState.isSubmitting
 
   const onSubmit = async (values: TChatInputSchema) => {
-    console.log('lala-- submit chat input--', values)
-
     try {
       const fullEndpoint = qs.stringifyUrl({
         url: apiUrl,
         query,
       })
 
-      console.log('lala-- fullEndpoint--', apiUrl, values, query, fullEndpoint)
-
       await axios.post(fullEndpoint, values)
+
+      form.reset()
+      router.refresh()
     } catch (error) {
       console.log('[message_send_fail]', error)
     }
@@ -74,16 +76,15 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   />
 
                   <button
-                    type="button"
-                    onClick={() => {}}
+                    type="submit"
                     className="tw-absolute tw-top-7 tw-right-16 tw-h-[24px] tw-w-[24px] tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
                   >
-                    <SendHorizonal className="tw-h-[16px] tw-w-[16px]" />
+                    <SendHorizonal className="tw-h-[16px] tw-w-[16px] tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition" />
                   </button>
 
-                  <button type="button" onClick={() => {}} className="tw-absolute tw-top-7 tw-right-8 ">
-                    <Smile />
-                  </button>
+                  <div className="tw-absolute tw-top-7 tw-right-8 ">
+                    <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
+                  </div>
                 </div>
               </FormControl>
             </FormItem>
