@@ -6,12 +6,14 @@ import { useForm } from 'react-hook-form'
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { chatInputSchema, zr } from '@/lib/zod'
-import { EChatHeaderType } from '@/types/enums'
+import { EChatHeaderType, EModalType } from '@/types/enums'
 import { TChatInputSchema } from '@/types/schema'
 
 interface ChatInputProps {
   apiUrl: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query?: Record<string, any>
   name: string
   type: EChatHeaderType
@@ -19,6 +21,7 @@ interface ChatInputProps {
 
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   console.log('lala-- unusued props now in chat input--', name, type)
+  const { onOpen } = useModal()
   const form = useForm<TChatInputSchema>({
     resolver: zr(chatInputSchema),
     defaultValues: {
@@ -57,7 +60,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                 <div className="tw-relative tw-p-4">
                   <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => onOpen(EModalType.MessageFile, { apiUrl, query })}
                     className="tw-absolute tw-top-7 tw-left-8 tw-h-[24px] tw-w-[24px] tw-bg-zinc-500 dark:tw-bg-zinc-400 hover:tw-bg-zinc-600 dark:hover:tw-bg-zinc-300 tw-transition tw-rounded-full tw-p-1 tw-flex tw-items-center tw-justify-center"
                   >
                     <Plus className="tw-text-white dark:tw-text-chatHeader" />
