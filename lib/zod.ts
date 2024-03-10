@@ -30,3 +30,7 @@ export const createChannelSchema = z.object({
     }),
   type: z.nativeEnum(ChannelType),
 })
+
+export const chatInputSchema = z.object({
+  content: z.string().min(1),
+})
