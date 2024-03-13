@@ -8,13 +8,14 @@ interface ActionTooltipProps {
   side?: 'top' | 'right' | 'left' | 'bottom'
   align?: 'start' | 'center' | 'end'
   sideOffset?: number
+  noCursor?: boolean
 }
 
-export const ActionTooltip = ({ label, children, side, align, sideOffset = 4 }: ActionTooltipProps) => {
+export const ActionTooltip = ({ label, children, side, align, sideOffset = 4, noCursor }: ActionTooltipProps) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>
-        <TooltipTrigger asChild className="tw-cursor-pointer">
+        <TooltipTrigger asChild className={noCursor ? '' : 'tw-cursor-pointer'}>
           {children}
         </TooltipTrigger>
 

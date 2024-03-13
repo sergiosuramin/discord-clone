@@ -4,6 +4,7 @@ import { Member } from '@prisma/client'
 import axios from 'axios'
 import { Edit, FileIcon, SendHorizonal, Trash } from 'lucide-react'
 import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -47,6 +48,8 @@ const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
+  const router = useRouter()
+  const params = useParams()
   const { onOpen } = useModal()
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
@@ -65,6 +68,15 @@ const ChatItem = ({
       content: content,
     },
   })
+
+  const onMemberClick = () => {
+    if (isOwner) {
+      // no event when clicking ourselves
+      return
+    }
+
+    router.push(`/servers/${params?.serverId}/chat/${member.id}`)
+  }
 
   // this event is triggered through click event
   const onTriggerEditor = (type: EChatEditorTrigger) => {
@@ -115,13 +127,17 @@ const ChatItem = ({
   return (
     <div className="tw-relative tw-group tw-flex tw-items-center hover:tw-bg-black/10 tw-p-4 tw-transition tw-w-full">
       <div className="tw-group tw-flex tw-gap-x-2 tw-items-start tw-w-full">
-        <div className="tw-cursor-pointer hover:tw-drop-shadow-md tw-transition">
-          <UserAvatar src={member.profile.imageUrl} fallback={member.profile.name} />
+        <div onClick={onMemberClick}>
+          <UserAvatar
+            src={member.profile.imageUrl}
+            fallback={member.profile.name}
+            className={!isOwner ? 'tw-cursor-pointer' : ''}
+          />
         </div>
 
         <div className="tw-flex tw-flex-col tw-w-full">
           <div className="tw-flex tw-flex-col min-[450px]:tw-flex-row min-[450px]:tw-items-center tw-gap-x-2 tw-mb-2">
-            <UserDisplay member={member} />
+            <UserDisplay member={member} onClick={onMemberClick} isOurselves={isOwner} isChat />
             <span className="tw-text-xs tw-text-zinc-500 dark:tw-text-zinc-500">{timestamp}</span>
           </div>
 

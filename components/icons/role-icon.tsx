@@ -33,7 +33,7 @@ export default function RoleIcon({ role, disableBg = false, manageUi = false, cl
   return manageUi ? (
     <>{icon}</>
   ) : (
-    <ActionTooltip label={role} side="top">
+    <ActionTooltip label={role} side="top" noCursor>
       {icon}
     </ActionTooltip>
   )
