@@ -15,9 +15,10 @@ import UserDisplay from '@/components/feature/user-display'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useCurrentRole } from '@/hooks/misc'
+import { useModal } from '@/hooks/zuztand/use-modal-store'
 import { cn } from '@/lib/utils'
 import { chatInputSchema, zr } from '@/lib/zod'
-import { EChatEditorTrigger } from '@/types/enums'
+import { EChatEditorTrigger, EModalType } from '@/types/enums'
 import { TServerMemberWithProfile } from '@/types/misc'
 import { TChatInputSchema } from '@/types/schema'
 
@@ -46,8 +47,8 @@ const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
+  const { onOpen } = useModal()
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
   const fileType = fileUrl?.split('.').pop()
 
@@ -213,7 +214,6 @@ const ChatItem = ({
                 , enter to{' '}
                 <span
                   className="tw-text-sky-500 dark:tw-text-sky-400 tw-underline tw-cursor-pointer"
-                  // onClick={() => onTriggerEditor(2)}
                   onClick={form.handleSubmit(onSubmit)}
                 >
                   save
@@ -239,7 +239,7 @@ const ChatItem = ({
           <ActionTooltip label="Delete" side="top">
             <Trash
               className="tw-cursor-pointer  tw-w-4 tw-h-4 tw-text-rose-500 dark:tw-text-rose-400 hover:tw-text-rose-600 dark:hover:tw-text-rose-300 tw-transition"
-              // onClick={(e) => onActionClick(e, EModalType.DeleteChannel)}
+              onClick={() => onOpen(EModalType.DeleteMessage, { apiUrl: `${socketUrl}/${id}`, query: socketQuery })}
             />
           </ActionTooltip>
         </div>

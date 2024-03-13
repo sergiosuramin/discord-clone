@@ -20,19 +20,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     const { content } = req.body
 
     if (!profile) {
-      res.status(401).json({ error: 'Unauthorized' })
+      return res.status(401).json({ error: 'Unauthorized' })
     }
 
     if (!serverId) {
-      res.status(400).json({ error: 'Server ID missing' })
+      return res.status(400).json({ error: 'Server ID missing' })
     }
 
     if (!channelId) {
-      res.status(400).json({ error: 'Channel ID missing' })
-    }
-
-    if (!content) {
-      res.status(400).json({ error: 'Content missing' })
+      return res.status(400).json({ error: 'Channel ID missing' })
     }
 
     const server = await db.server.findFirst({
@@ -50,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     })
 
     if (!server) {
-      res.status(404).json({ error: 'Server not found' })
+      return res.status(404).json({ error: 'Server not found' })
     }
 
     const channel = await db.channel.findFirst({
@@ -61,14 +57,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     })
 
     if (!channel) {
-      res.status(404).json({ error: 'Channel not found' })
+      return res.status(404).json({ error: 'Channel not found' })
     }
 
     // ourselves
     const member = server.members.find((member) => member.profileId === profile.id)
 
     if (!member) {
-      res.status(404).json({ error: 'Member not found' })
+      return res.status(404).json({ error: 'Member not found' })
     }
 
     let message = await db.message.findFirst({
@@ -86,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     })
 
     if (!message || message.deleted) {
-      res.status(404).json({ error: 'Message not found' })
+      return res.status(404).json({ error: 'Message not found' })
     }
 
     const isMessageOwner = message.memberId === member.id
@@ -95,7 +91,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     const allowEdit = isMessageOwner || isAdmin || isModedator
 
     if (!allowEdit) {
-      res.status(401).json({ error: 'Unauthorized to take action' })
+      return res.status(401).json({ error: 'Unauthorized to take action' })
     }
 
     if (req.method === 'DELETE') {
@@ -119,7 +115,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 
     if (req.method === 'PATCH') {
       if (!isMessageOwner) {
-        res.status(401).json({ error: 'Unauthorized to take action' })
+        return res.status(401).json({ error: 'Unauthorized to take action' })
       }
 
       message = await db.message.update({

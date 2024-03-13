@@ -9,4 +9,5 @@ export enum EModalType {
   DeleteChannel = 'deleteChannel',
   EditChannel = 'editChannel',
   MessageFile = 'messageFile',
+  DeleteMessage = 'deleteMessage',
 }

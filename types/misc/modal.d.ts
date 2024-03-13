@@ -12,6 +12,7 @@ type TModalType =
   | 'deleteChannel'
   | 'editChannel'
   | 'messageFile'
+  | 'deleteMessage'
 
 interface IModalData {
   server?: Server
