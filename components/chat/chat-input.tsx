@@ -78,6 +78,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <button
                     type="submit"
                     className="tw-absolute tw-top-7 tw-right-16 tw-h-[24px] tw-w-[24px] tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
+                    disabled={isSubmitting}
                   >
                     <SendHorizonal className="tw-h-[16px] tw-w-[16px] tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition" />
                   </button>

@@ -3,7 +3,6 @@ import { Hash } from 'lucide-react'
 import MobileToggle from '@/components/feature/mobile-toggle'
 import SocketIndicator from '@/components/feature/socket-indicator'
 import UserAvatar from '@/components/feature/user-avatar'
-import { getInitials } from '@/lib/function'
 import { EChatHeaderType } from '@/types/enums'
 
 interface ChatHeaderProps {
@@ -25,7 +24,7 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
 
       {/* DM conversation*/}
       {type === EChatHeaderType.DirectMessage && (
-        <UserAvatar src={imageUrl} fallback={getInitials(name)} className="tw-w-8 tw-h-8 md:tw-w-8 md:tw-h-8 tw-mr-2" />
+        <UserAvatar src={imageUrl} fallback={name} className="tw-w-8 tw-h-8 md:tw-w-8 md:tw-h-8 tw-mr-2" />
       )}
 
       <p className="tw-font-semibold tw-text-foreground tw-truncate">{name}</p>

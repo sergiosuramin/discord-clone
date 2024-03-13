@@ -3,11 +3,11 @@
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ChatHeader, ChatInput } from '@/components/chat'
-import { socketMessagePath } from '@/lib/constant'
+import { ChatHeader, ChatInput, ChatMessages } from '@/components/chat'
+import { allMessagesPath, socketMessagePath } from '@/lib/constant'
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
-import { EChatHeaderType } from '@/types/enums'
+import { EChatHeaderType, EChatParamKey } from '@/types/enums'
 
 interface ChannelIdPageProps {
   params: {
@@ -47,7 +47,20 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     <div className="tw-bg-chatHeader tw-flex tw-flex-col tw-h-full">
       <ChatHeader name={channel.name} serverId={params.serverId} type={EChatHeaderType.Channel} />
 
-      <div className="tw-flex-1 tw-bg-blue-500/50">messages will be here</div>
+      <ChatMessages
+        name={channel.name}
+        member={member}
+        chatId={channel.id}
+        apiUrl={allMessagesPath} // get the messages
+        socketUrl={socketMessagePath} // POST to send new message
+        socketQuery={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
+        paramKey={EChatParamKey.ChannelId}
+        paramValue={channel.id}
+        type={EChatHeaderType.Channel}
+      />
 
       <ChatInput
         name={channel.name}

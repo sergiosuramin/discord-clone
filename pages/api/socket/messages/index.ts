@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  console.log('lala-- req--', req)
+  console.log('lala-- req-- api/socket/messages', req)
 
   try {
     const profile = await currentProfilePagesRouter(req)

@@ -22,7 +22,6 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
-import { getInitials } from '@/lib/function'
 import { EModalType } from '@/types/enums'
 import { TManageServerMemberProps, TServerAllProps } from '@/types/misc'
 
@@ -152,7 +151,7 @@ export const ManageMemberModal = () => {
         <ScrollArea className="tw-mt-8 tw-max-h-[420px] tw-pr-6">
           {server?.members?.map((member) => (
             <div key={`${member.id}`} className="tw-flex tw-items-center tw-gap-x-2 tw-mb-6">
-              <UserAvatar src={member?.profile?.imageUrl} fallback={getInitials(member?.profile?.name)} />
+              <UserAvatar src={member?.profile?.imageUrl} fallback={member?.profile?.name} />
 
               <div className="tw-flex tw-flex-col tw-gap-y-1">
                 <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">

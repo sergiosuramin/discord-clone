@@ -8,6 +8,11 @@ export enum EChatHeaderType {
   DirectMessage = 'chat',
 }
 
+export enum EChatParamKey {
+  ChannelId = 'channelId',
+  ConversationId = 'conversationId',
+}
+
 export enum ELockedChannelName {
   general = 'general',
 }
