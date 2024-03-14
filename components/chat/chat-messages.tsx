@@ -3,10 +3,11 @@ import { Member } from '@prisma/client'
 import { Loader2, ServerCrash } from 'lucide-react'
 import { Fragment } from 'react'
 
-import { useChatQuery } from '@/hooks/chat'
+import { useChatQuery, useChatSocket } from '@/hooks/chat'
 import { formatChatTimestamp } from '@/lib/date-formatter'
 import { EChatHeaderType, EChatParamKey } from '@/types/enums'
 import { TCompleteChannelMessage } from '@/types/misc'
+import { TChatResponse } from '@/types/response'
 
 import ChatItem from './chat-item'
 import ChatWelcome from './chat-welcome'
@@ -34,11 +35,23 @@ const ChatMessages = ({
   paramValue,
   type,
 }: ChatMessagesProps) => {
+  const rq = {
+    addKey: `chat:${chatId}:messages`, // the key must match with the one we defined in the /pages/api/socket
+    updateKey: `chat:${chatId}:messages:update`, // the key must match with the one we defined in the /pages/api/socket
+    queryKey: `chat:${chatId}`,
+  }
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({
-    queryKey: `get-chat:${chatId}`,
+    queryKey: rq.queryKey,
     apiUrl,
     paramKey,
     paramValue,
+  })
+
+  useChatSocket({
+    addKey: rq.addKey,
+    updateKey: rq.updateKey,
+    queryKey: rq.queryKey,
   })
 
   console.log('lala-- status--', status)
@@ -73,9 +86,9 @@ const ChatMessages = ({
       <ChatWelcome type={type} name={name} />
 
       <div className="tw-flex tw-flex-col-reverse tw-mt-auto">
-        {data?.pages?.map((group, index) => (
+        {(data as TChatResponse)?.pages?.map((group, index) => (
           <Fragment key={index}>
-            {group?.items?.map((message: TCompleteChannelMessage) => (
+            {group?.items.map((message: TCompleteChannelMessage) => (
               <ChatItem
                 key={message.id}
                 id={message.id}
