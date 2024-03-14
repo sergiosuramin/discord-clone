@@ -30,7 +30,7 @@ const UserDisplay = ({
         className={cn(
           usernameClassName ? usernameClassName : 'tw-font-bold tw-text-sm',
           !isOurselves && 'tw-cursor-pointer',
-          isChat && 'hover:tw-underline'
+          !isOurselves && isChat && 'hover:tw-underline'
         )}
         onClick={() => onClick?.()}
       >

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import qs from 'query-string'
