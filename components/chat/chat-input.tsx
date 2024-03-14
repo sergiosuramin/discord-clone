@@ -59,7 +59,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="tw-relative tw-p-4">
+                <div className="tw-relative tw-p-4" id="chat-input-comp" aria-describedby="chat-input">
                   <button
                     type="button"
                     onClick={() => onOpen(EModalType.MessageFile, { apiUrl, query })}
@@ -83,7 +83,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     <SendHorizonal className="tw-h-[16px] tw-w-[16px] tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition" />
                   </button>
 
-                  <div className="tw-absolute tw-top-7 tw-right-8 ">
+                  <div className="tw-absolute tw-top-7 tw-right-8">
                     <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
                   </div>
                 </div>

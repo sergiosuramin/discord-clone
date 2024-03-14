@@ -19,8 +19,11 @@ const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
 
   return (
     <Popover>
-      <PopoverTrigger>
-        <Smile className="tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition" />
+      <PopoverTrigger asChild>
+        <Smile
+          aria-controls="emoji-picker"
+          className="tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition"
+        />
       </PopoverTrigger>
 
       <PopoverContent

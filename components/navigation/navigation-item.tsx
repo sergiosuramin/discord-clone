@@ -39,7 +39,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
               isCurrentServer && 'group-hover:tw-bg-primary/10 tw-text-primary !tw-rounded-[12px]'
             )}
           >
-            <Image fill src={imageUrl} alt="server-channels" />
+            <Image fill sizes="100%" src={imageUrl} alt="server-channels" />
           </div>
         </button>
       </ActionTooltip>

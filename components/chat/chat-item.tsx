@@ -149,7 +149,7 @@ const ChatItem = ({
               rel="noopener noreferrer"
               className="tw-relative tw-aspect-square tw-rounded-md tw-overflow-hidden tw-flex tw-items-center tw-bg-secondary tw-w-48 tw-h-48"
             >
-              <Image fill src={fileUrl} alt={content} className="tw-object-cover" />
+              <Image fill sizes="100%" src={fileUrl} alt={content} className="tw-object-cover" />
             </a>
           )}
 

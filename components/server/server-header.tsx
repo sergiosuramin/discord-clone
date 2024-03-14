@@ -48,6 +48,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:tw-outline-none" asChild>
         <Button
+          id={server?.name ?? 'server-header-btn'}
           variant="transparent"
           className="tw-w-full tw-h-12 tw-items-center tw-text-md tw-font-semibold tw-px-3 tw-border-b-2 tw-rounded-none hover:tw-bg-zinc-700/10 dark:tw-border-neutral-800 dark:hover:tw-bg-zinc-700/50 tw-transition"
         >

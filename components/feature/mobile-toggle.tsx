@@ -13,7 +13,7 @@ const MobileToggle = ({ serverId }: MobileToggleProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild className="tw-mr-2">
-        <Button variant="ghost" size="icon" className="md:tw-hidden">
+        <Button id="mobile-nav-toggle" aria-controls="mobile-nav" variant="ghost" size="icon" className="md:tw-hidden">
           <Menu />
         </Button>
       </SheetTrigger>
