@@ -1,9 +1,9 @@
 'use client'
 import { Member } from '@prisma/client'
 import { Loader2, ServerCrash } from 'lucide-react'
-import { Fragment } from 'react'
+import { ElementRef, Fragment, useRef } from 'react'
 
-import { useChatQuery, useChatSocket } from '@/hooks/chat'
+import { useChatQuery, useChatScroll, useChatSocket } from '@/hooks/chat'
 import { formatChatTimestamp } from '@/lib/date-formatter'
 import { EChatHeaderType, EChatParamKey } from '@/types/enums'
 import { TCompleteChannelMessage } from '@/types/misc'
@@ -41,6 +41,9 @@ const ChatMessages = ({
     queryKey: `chat:${chatId}`,
   }
 
+  const chatRef = useRef<ElementRef<'div'>>(null)
+  const bottomRef = useRef<ElementRef<'div'>>(null)
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({
     queryKey: rq.queryKey,
     apiUrl,
@@ -48,13 +51,21 @@ const ChatMessages = ({
     paramValue,
   })
 
+  // real-time message listener
   useChatSocket({
     addKey: rq.addKey,
     updateKey: rq.updateKey,
     queryKey: rq.queryKey,
   })
 
-  console.log('lala-- status--', status)
+  // infinite scroll event and new message listener
+  useChatScroll({
+    chatRef,
+    bottomRef,
+    loadMore: fetchNextPage,
+    shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
+    count: data?.pages[0]?.items.length ?? 0,
+  })
 
   if (status === 'pending') {
     return (
@@ -80,10 +91,25 @@ const ChatMessages = ({
   console.log('lala-- data--', data)
 
   return (
-    <div className="tw-flex-1 tw-flex tw-flex-col tw-py-4 tw-overflow-y-auto">
-      <div className="tw-flex-1" />
+    <div ref={chatRef} className="tw-flex-1 tw-flex tw-flex-col tw-py-4 tw-overflow-y-auto">
+      {/* !hasNextPage indicates we are in the last page, when there's nothing to load */}
+      {!hasNextPage && <div className="tw-flex-1" />}
+      {!hasNextPage && <ChatWelcome type={type} name={name} />}
 
-      <ChatWelcome type={type} name={name} />
+      {hasNextPage && (
+        <div className="tw-flex tw-justify-center">
+          {isFetchingNextPage ? (
+            <Loader2 className="tw-w-7 tw-h-7 tw-text-zinc-700 tw-animate-spin" />
+          ) : (
+            <button
+              className="tw-text-xs tw-text-zinc-500 dark:tw-text-zinc-400 hover:tw-text-zinc-600 dark:hover:tw-text-zinc-300 tw-transition tw-my-4"
+              onClick={() => fetchNextPage()} // can be used as a fallback if the scroll didnt run
+            >
+              Load previous messages
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="tw-flex tw-flex-col-reverse tw-mt-auto">
         {(data as TChatResponse)?.pages?.map((group, index) => (
@@ -106,8 +132,9 @@ const ChatMessages = ({
           </Fragment>
         ))}
       </div>
+
+      <div ref={bottomRef} />
     </div>
   )
-  // <div key={message.id}>{message.content}</div>
 }
 export default ChatMessages
