@@ -9,7 +9,7 @@ const SetupPage = async () => {
   const profile = await initialProfile()
 
   // find the first server where user is a member of
-  const server = await db.server.findFirst({
+  const firstServer = await db.server.findFirst({
     where: {
       members: {
         some: {
@@ -19,17 +19,22 @@ const SetupPage = async () => {
     },
   })
 
-  if (server) {
-    return redirect(`/servers/${server.id}`)
+  // user have at least 1 server
+  if (firstServer) {
+    return redirect(`/servers/${firstServer.id}`)
   }
 
-  return <InitialModal />
+  // let's say user have no server at all.
+  // we will offer user to either create or join creator's root server
+
+  // hardcode checking
+  const creatorServer = await db.server.findUnique({
+    where: {
+      id: '827cd88f-83ad-4670-8318-d4fd6976732c',
+    },
+  })
+
+  return <InitialModal creatorServerInviteCode={creatorServer.inviteCode} />
 }
 
 export default SetupPage
-
-// TODO:
-// For now, force user to create their server if they dont have one.
-// Prior production, it will be changed to:
-// owning a server is not required.
-// alternative: force user to join creator server by default (last option)
