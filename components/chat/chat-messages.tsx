@@ -11,6 +11,7 @@ import { TChatResponse } from '@/types/response'
 
 import ChatItem from './chat-item'
 import ChatWelcome from './chat-welcome'
+import { ChatMessageSkeleton } from '../skeleton'
 
 interface ChatMessagesProps {
   name: string
@@ -69,10 +70,13 @@ const ChatMessages = ({
 
   if (status === 'pending') {
     return (
-      // TODO: change to skeleton later
-      <div className="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center">
-        <Loader2 className="tw-w-7 tw-h-7 tw-text-zinc-700 tw-animate-spin" />
-        <p className="tw-text-xs tw-text-zinc-500 dark:tw-text-zinc-400">Loading messages...</p>
+      // <div className="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center">
+      //   <Loader2 className="tw-w-7 tw-h-7 tw-text-zinc-700 tw-animate-spin" />
+      //   <p className="tw-text-xs tw-text-zinc-500 dark:tw-text-zinc-400">Loading messages...</p>
+      // </div>
+
+      <div className="tw-flex tw-flex-1 tw-items-end">
+        <ChatMessageSkeleton type={type} />
       </div>
     )
   }
