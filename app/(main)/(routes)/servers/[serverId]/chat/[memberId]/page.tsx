@@ -3,11 +3,12 @@
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ChatHeader } from '@/components/chat'
+import { ChatHeader, ChatInput, ChatMessages } from '@/components/chat'
+import { allDirectMessagePath, socketDirectMessagePath } from '@/lib/constant'
 import { generateConversation } from '@/lib/conversation'
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
-import { EChatHeaderType } from '@/types/enums'
+import { EChatHeaderType, EChatParamKey } from '@/types/enums'
 
 interface ChatPageProps {
   params: {
@@ -53,7 +54,7 @@ const ChatWithMemberPage = async ({ params }: ChatPageProps) => {
   // conversation exists (created or get)
   const { memberOne, memberTwo } = dmConversation
 
-  /** if member-1 is ourselves, than our interlocutors is the member-2, and vice versa.
+  /** if member-1 is ourselves, then our interlocutors is the member-2. Vice versa.
    * we check this because we don't know who initiated the conversation of the DM.
    * so, other member will always be the member whose ID is in the URL
    */
@@ -66,6 +67,29 @@ const ChatWithMemberPage = async ({ params }: ChatPageProps) => {
         name={otherMember.profile.name}
         serverId={params.serverId}
         type={EChatHeaderType.DirectMessage}
+      />
+
+      <ChatMessages
+        name={otherMember.profile.name}
+        member={myself}
+        chatId={dmConversation.id}
+        apiUrl={allDirectMessagePath} // get the messages
+        socketUrl={socketDirectMessagePath} // POST to send new message
+        socketQuery={{
+          conversationId: dmConversation.id,
+        }}
+        paramKey={EChatParamKey.ConversationId}
+        paramValue={dmConversation.id}
+        type={EChatHeaderType.DirectMessage}
+      />
+
+      <ChatInput
+        name={otherMember.profile.name}
+        type={EChatHeaderType.DirectMessage}
+        apiUrl={socketDirectMessagePath}
+        query={{
+          conversationId: dmConversation.id,
+        }}
       />
     </div>
   )
