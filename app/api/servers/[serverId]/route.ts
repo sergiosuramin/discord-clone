@@ -26,7 +26,6 @@ export async function DELETE(_req: Request, { params }: EditServerPatchParamsPro
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[server_id_delete]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
@@ -54,7 +53,6 @@ export async function PATCH(req: Request, { params }: EditServerPatchParamsProps
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[server_id_edit]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

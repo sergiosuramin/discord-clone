@@ -175,7 +175,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             />
 
             {membersExceptMe.map((member) => (
-              <ServerMember key={member.id} member={member} server={server} />
+              <ServerMember key={member.id} member={member} />
             ))}
           </div>
         )}

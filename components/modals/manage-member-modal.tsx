@@ -1,10 +1,12 @@
 import { MemberRole } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Check, Gavel, Loader2, MoreVertical, ShieldQuestion } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
+import UserAvatar from '@/components/feature/user-avatar'
 import { RoleIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
@@ -19,10 +21,8 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import UserAvatar from '@/components/user-avatar'
 import { useCurrentRole } from '@/hooks/misc'
 import { useModal } from '@/hooks/zuztand/use-modal-store'
-import { getInitials } from '@/lib/function'
 import { EModalType } from '@/types/enums'
 import { TManageServerMemberProps, TServerAllProps } from '@/types/misc'
 
@@ -60,7 +60,9 @@ export const ManageMemberModal = () => {
       router.refresh()
       onOpen(EModalType.ManageMembers, { server: response.data })
     } catch (error) {
-      console.log('[on_kick_member]', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to kick member')
+      }
     } finally {
       setLoadingId('')
     }
@@ -86,7 +88,9 @@ export const ManageMemberModal = () => {
       router.refresh()
       onOpen(EModalType.ManageMembers, { server: response.data })
     } catch (error) {
-      console.log('[on_role_change]', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to update member role')
+      }
     } finally {
       setLoadingId('')
     }
@@ -152,7 +156,7 @@ export const ManageMemberModal = () => {
         <ScrollArea className="tw-mt-8 tw-max-h-[420px] tw-pr-6">
           {server?.members?.map((member) => (
             <div key={`${member.id}`} className="tw-flex tw-items-center tw-gap-x-2 tw-mb-6">
-              <UserAvatar src={member?.profile?.imageUrl} fallback={getInitials(member?.profile?.name)} />
+              <UserAvatar src={member?.profile?.imageUrl} fallback={member?.profile?.name} />
 
               <div className="tw-flex tw-flex-col tw-gap-y-1">
                 <div className="tw-text-sm tw-font-semibold tw-flex tw-items-center tw-gap-x-1">

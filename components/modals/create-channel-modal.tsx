@@ -1,9 +1,10 @@
 import { ChannelType } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -63,18 +64,18 @@ export const CreateChannelModal = () => {
 
       const res = await axios.post(fullEndpoint, values)
 
-      console.log('lala-- res-- create channel--', res)
-
       if (res.status === 200) {
-        alert('Create channel Success (todo: replace with toast)')
-      } else {
-        alert('Failed to channel (todo: replace with toast)')
-      }
+        toast.success(`Channel "${values.name}" successfully created!`)
 
-      onOpenDialogChange()
-      router.refresh()
+        onOpenDialogChange()
+        router.refresh()
+      } else {
+        toast.error('Failed to create channel')
+      }
     } catch (error) {
-      console.log('lala-- <submit create channel>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to create channel')
+      }
     }
   }
 

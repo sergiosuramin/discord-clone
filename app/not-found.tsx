@@ -5,7 +5,6 @@ import Head from 'next/head'
 const NotFound = () => (
   <div className="tw-w-screen tw-h-screen tw-flex tw-justify-center tw-items-center">
     <Head>
-      {/* Remove the preload link that was causing the warning */}
       <title>404 Not Found</title>
       <meta name="description" content="Oops! Looks like you're lost or the page is not found." />
     </Head>

@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Eraser } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -30,19 +31,19 @@ export const DeleteServerModal = () => {
 
       const res = await axios.delete(`/api/servers/${server?.id}`)
 
-      console.log('lala-- res Delete--', res)
-
       if (res.status === 200) {
-        alert('Delete Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Delete Server (todo: replace with toast)')
-      }
+        toast.success('Server has been deleted!')
 
-      onClose()
-      router.refresh()
-      router.push('/')
+        onClose()
+        router.refresh()
+        router.push('/')
+      } else {
+        toast.error('Failed to delete server')
+      }
     } catch (error) {
-      console.log('<delete_server>', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to delete')
+      }
     }
 
     setIsLoading(false)
@@ -74,7 +75,7 @@ export const DeleteServerModal = () => {
             <Button
               disabled={isloading}
               variant="destructive"
-              className="dark:tw-text-rose-500"
+              className="dark:tw-bg-rose-500"
               onClick={() => onDelete()}
             >
               Confirm

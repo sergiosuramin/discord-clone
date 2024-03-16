@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
-import FileUpload from '@/components/file-upload'
+import FileUpload from '@/components/feature/file-upload'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -48,18 +49,18 @@ export const EditServerModal = () => {
     try {
       const res = await axios.patch(`/api/servers/${server?.id}`, values)
 
-      console.log('lala-- res edit--', res)
-
       if (res.status === 200) {
-        alert('Create Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Server (todo: replace with toast)')
-      }
+        toast.success('Server successfully updated!')
 
-      onOpenDialogChange()
-      router.refresh()
+        onOpenDialogChange()
+        router.refresh()
+      } else {
+        toast.error('Failed to edit server')
+      }
     } catch (error) {
-      console.log('lala-- <submit create server>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to edit server')
+      }
     }
   }
 

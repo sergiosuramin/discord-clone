@@ -1,9 +1,10 @@
 import { ChannelType } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -54,18 +55,18 @@ export const EditChannelModal = () => {
 
       const res = await axios.patch(fullEndpoint, values)
 
-      console.log('lala-- res-- edit channel--', res)
-
       if (res.status === 200) {
-        alert('edit channel Success (todo: replace with toast)')
-      } else {
-        alert('Failed to channel (todo: replace with toast)')
-      }
+        toast.success('Channel successfully updated!')
 
-      onOpenDialogChange()
-      router.refresh()
+        onOpenDialogChange()
+        router.refresh()
+      } else {
+        toast.error('Failed to edit channel')
+      }
     } catch (error) {
-      console.log('lala-- <submit edit channel>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to edit channel')
+      }
     }
   }
 
