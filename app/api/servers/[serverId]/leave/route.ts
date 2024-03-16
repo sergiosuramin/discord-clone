@@ -44,7 +44,6 @@ export async function PATCH(req: Request, { params }: LeavePatchParamsProps) {
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[server_id_leave]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

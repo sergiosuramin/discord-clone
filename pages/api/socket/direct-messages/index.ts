@@ -9,8 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  console.log('lala-- req-- api/socket/messages', req)
-
   try {
     const profile = await currentProfilePagesRouter(req)
 
@@ -95,7 +93,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 
     return res.status(200).json(message)
   } catch (error) {
-    console.log('[direct_message_post]', error)
     return res.status(500).json({ error: 'Internal error' })
   }
 }

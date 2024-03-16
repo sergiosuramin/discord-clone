@@ -73,8 +73,6 @@ export async function GET(req: Request) {
       nextCursor = messages[DEFAULT_LIMIT - 1].id
     }
 
-    console.log('lala-- messages--', messages)
-
     return NextResponse.json({
       items: messages,
       nextCursor,

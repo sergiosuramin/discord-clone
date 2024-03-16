@@ -1,9 +1,10 @@
 import { MemberRole } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Check, Gavel, Loader2, MoreVertical, ShieldQuestion } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import UserAvatar from '@/components/feature/user-avatar'
 import { RoleIcon } from '@/components/icons'
@@ -59,7 +60,9 @@ export const ManageMemberModal = () => {
       router.refresh()
       onOpen(EModalType.ManageMembers, { server: response.data })
     } catch (error) {
-      console.log('[on_kick_member]', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to kick member')
+      }
     } finally {
       setLoadingId('')
     }
@@ -85,7 +88,9 @@ export const ManageMemberModal = () => {
       router.refresh()
       onOpen(EModalType.ManageMembers, { server: response.data })
     } catch (error) {
-      console.log('[on_role_change]', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to update member role')
+      }
     } finally {
       setLoadingId('')
     }

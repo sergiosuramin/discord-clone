@@ -35,7 +35,6 @@ export async function PATCH(_req: Request, { params }: InvitePatchParamsProps) {
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[server_id_invite]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { AlertTriangle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -30,19 +31,19 @@ export const LeaveServerModal = () => {
 
       const res = await axios.patch(`/api/servers/${server?.id}/leave`)
 
-      console.log('lala-- res leave--', res)
-
       if (res.status === 200) {
-        alert('Leave Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Leave Server (todo: replace with toast)')
-      }
+        toast.success(`You have left ${server?.name}!`)
 
-      onClose()
-      router.refresh()
-      router.push('/')
+        onClose()
+        router.refresh()
+        router.push('/')
+      } else {
+        toast.error('Failed to leave server')
+      }
     } catch (error) {
-      console.log('<leave_server>', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to leave server')
+      }
     }
 
     setIsLoading(false)

@@ -2,8 +2,10 @@
 
 import { FileIcon, X } from 'lucide-react'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 import { UploadDropzone } from '@/lib/uploadthing'
+
 import '@uploadthing/react/styles.css'
 
 interface FileUploadProps {
@@ -62,7 +64,7 @@ const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
         onChange(res?.[0]?.url)
       }}
       onUploadError={(error: Error) => {
-        console.log('lala-- error--', error)
+        toast.error(error.message ?? 'Failed to upload file')
       }}
     />
   )

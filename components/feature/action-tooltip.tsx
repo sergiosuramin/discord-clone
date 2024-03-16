@@ -19,7 +19,7 @@ export const ActionTooltip = ({ label, children, side, align, sideOffset = 4, no
           {children}
         </TooltipTrigger>
 
-        <TooltipContent side={side} align={align} sideOffset={sideOffset}>
+        <TooltipContent side={side} align={align} sideOffset={sideOffset} autoFocus={false}>
           <p className="tw-text-semibold tw-text-sm tw-capitalize">{label}</p>
         </TooltipContent>
       </Tooltip>

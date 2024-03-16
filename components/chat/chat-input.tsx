@@ -1,9 +1,10 @@
 'use client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Plus, SendHorizonal } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import EmojiPicker from '@/components/feature/emoji-picker'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
@@ -23,7 +24,6 @@ interface ChatInputProps {
 
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const router = useRouter()
-  console.log('lala-- unusued props now in chat input--', name, type)
   const { onOpen } = useModal()
   const form = useForm<TChatInputSchema>({
     resolver: zr(chatInputSchema),
@@ -43,10 +43,13 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
       await axios.post(fullEndpoint, values)
 
+      // we don't need to toast here
       form.reset()
       router.refresh()
     } catch (error) {
-      console.log('[message_send_fail]', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to send message')
+      }
     }
   }
 
@@ -71,7 +74,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <Input
                     disabled={isSubmitting}
                     className="!tw-pl-14 !tw-pr-24 !tw-py-6 tw-bg-zinc-200/90 dark:tw-bg-zinc-700/75 tw-border-none tw-border-0 focus-visible:!tw-ring-0 focus-visible:!tw-ring-offset-0 tw-text-zinc-600 dark:tw-text-zinc-200"
-                    placeholder="Enter your message"
+                    placeholder={`Message ${type === EChatHeaderType.DirectMessage ? '@' + name : '#' + name}`}
                     {...field}
                   />
 

@@ -1,9 +1,10 @@
 'use client'
 
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import FileUpload from '@/components/feature/file-upload'
 import { Button } from '@/components/ui/button'
@@ -49,23 +50,19 @@ export const MessageFileModal = () => {
         query,
       })
 
-      const res = await axios.post(fullEndpoint, {
+      await axios.post(fullEndpoint, {
         ...values,
         content: values.fileUrl,
       })
 
-      console.log('lala-- res--', res)
-
-      if (res.status === 200) {
-        alert('Create Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Server (todo: replace with toast)')
-      }
+      // we don't need to toast here
 
       router.refresh()
       handleClose()
     } catch (error) {
-      console.log('lala-- <submit create server>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to attach file')
+      }
     }
   }
 

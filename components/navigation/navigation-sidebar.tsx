@@ -9,6 +9,7 @@ import { db } from '@/lib/db'
 
 import { NavigationAction } from './navigation-action'
 import { NavigationItem } from './navigation-item'
+import { NavigationPortfolio } from './navigation-portfolio'
 
 const NavigationSidebar = async () => {
   const profile = await currentProfile()
@@ -30,7 +31,7 @@ const NavigationSidebar = async () => {
 
   return (
     <div className="tw-space-y-4 tw-flex tw-flex-col tw-items-center tw-w-full tw-h-full tw-text-primary tw-bg-server tw-py-3">
-      <NavigationAction />
+      <NavigationPortfolio />
       <Separator className="!tw-w-8 tw-h-[2px] tw-bg-zinc-300 dark:tw-bg-zinc-700 tw-rounded-md tw-mx-auto" />
 
       <ScrollArea className="tw-flex-1 tw-w-full">
@@ -39,6 +40,8 @@ const NavigationSidebar = async () => {
             <NavigationItem id={server.id} name={server.name} imageUrl={server.imageUrl} />
           </div>
         ))}
+
+        <NavigationAction />
       </ScrollArea>
 
       <div className="tw-pb-3 tw-mt-auto tw-flex tw-items-center tw-flex-col tw-gap-y-4">

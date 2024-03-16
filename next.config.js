@@ -13,7 +13,7 @@ const nextConfig = {
     ENV_CODE: process.env.ENV_CODE || '',
   },
   images: {
-    domains: ['uploadthing.com', 'utfs.io'],
+    domains: ['uploadthing.com', 'utfs.io', 'storage.googleapis.com'],
   },
 }
 
