@@ -56,7 +56,6 @@ export async function DELETE(req: Request, { params }: ManageMemberPatchParamsPr
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[manage_member_delete]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
@@ -116,7 +115,6 @@ export async function PATCH(req: Request, { params }: ManageMemberPatchParamsPro
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[manage_member_patch]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

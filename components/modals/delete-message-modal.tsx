@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Eraser } from 'lucide-react'
 import qs from 'query-string'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -35,17 +36,19 @@ export const DeleteMessageModal = () => {
 
       const res = await axios.delete(fullEndpoint)
 
-      console.log('lala-- res Delete message--', res)
-
+      // we don't need to toast here
       if (res.status === 200) {
-        alert('Delete Message Success (todo: replace with toast)')
+        onClose()
       } else {
-        alert('Failed to Message Channel (todo: replace with toast)')
+        // but, just in case
+        toast.error('Failed to delete message')
       }
 
-      onClose()
+      // onClose()
     } catch (error) {
-      console.log('<delete_message>', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to delete message')
+      }
     }
 
     setIsLoading(false)

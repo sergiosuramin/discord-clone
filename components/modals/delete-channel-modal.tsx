@@ -1,8 +1,9 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Eraser } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -39,19 +40,19 @@ export const DeleteChannelModal = () => {
 
       const res = await axios.delete(fullEndpoint)
 
-      console.log('lala-- res Delete channel--', res)
-
       if (res.status === 200) {
-        alert('Delete Channel Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Delete Channel (todo: replace with toast)')
-      }
+        toast.success(`Channel "${channel?.name}" has been deleted!`)
 
-      onClose()
-      router.refresh()
-      router.push(`/servers/${server?.id}`) // go back to server's root
+        onClose()
+        router.refresh()
+        router.push(`/servers/${server?.id}`) // go back to server's root
+      } else {
+        toast.error('Failed to delete channel')
+      }
     } catch (error) {
-      console.log('<delete_channel>', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to delete channel')
+      }
     }
 
     setIsLoading(false)

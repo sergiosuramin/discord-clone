@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import FileUpload from '@/components/feature/file-upload'
 import { Button } from '@/components/ui/button'
@@ -35,25 +36,6 @@ export const CreateServerModal = () => {
 
   const { isSubmitting } = form.formState
 
-  const onSubmit = async (values: TCreateServerSchema) => {
-    try {
-      const res = await axios.post('/api/servers', values)
-
-      console.log('lala-- res--', res)
-
-      if (res.status === 200) {
-        alert('Create Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Server (todo: replace with toast)')
-      }
-
-      onOpenDialogChange()
-      router.refresh()
-    } catch (error) {
-      console.log('lala-- <submit create server>--', error)
-    }
-  }
-
   const onOpenDialogChange = () => {
     /** we only need to handle onClose here because
      * we will do onOpen in other folders.
@@ -61,6 +43,26 @@ export const CreateServerModal = () => {
 
     form.reset()
     onClose()
+  }
+
+  const onSubmit = async (values: TCreateServerSchema) => {
+    try {
+      const res = await axios.post('/api/servers', values)
+
+      if (res.status === 200) {
+        toast.success(`Server "${values.name}" successfully created!`)
+
+        onOpenDialogChange()
+        // router.refresh()
+        router.push(`/servers/${res.data.id}`)
+      } else {
+        toast.error('Failed to create the server')
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to create server')
+      }
+    }
   }
 
   return (

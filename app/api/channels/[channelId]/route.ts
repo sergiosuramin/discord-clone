@@ -63,7 +63,6 @@ export async function PATCH(req: Request, { params }: DeleteChannelParamsProps) 
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[channel_id_patch]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
@@ -112,7 +111,6 @@ export async function DELETE(req: Request, { params }: DeleteChannelParamsProps)
 
     return NextResponse.json(server)
   } catch (error) {
-    console.log('[channel_id_delete]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

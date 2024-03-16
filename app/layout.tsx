@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import { ModalProvider, QueryProvider, SocketProvider, ThemeProvider } from '@/components/provider'
+import Toaster from '@/components/toast'
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <QueryProvider>
                 <ModalProvider />
                 {children}
+                <Toaster />
               </QueryProvider>
             </SocketProvider>
           </ThemeProvider>

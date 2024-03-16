@@ -1,9 +1,10 @@
 'use client'
 
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import FileUpload from '@/components/feature/file-upload'
 import { Button } from '@/components/ui/button'
@@ -42,19 +43,19 @@ export const InitialModal = () => {
     try {
       const res = await axios.post('/api/servers', values)
 
-      console.log('lala-- res--', res)
-
       if (res.status === 200) {
-        alert('Create Server Success (todo: replace with toast)')
-      } else {
-        alert('Failed to Server (todo: replace with toast)')
-      }
+        toast.success('Server successfully created!')
 
-      form.reset()
-      router.refresh()
-      window.location.reload()
+        form.reset()
+        router.refresh()
+        window.location.reload()
+      } else {
+        toast.error('Failed to create the server')
+      }
     } catch (error) {
-      console.log('lala-- <submit create server>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to create server')
+      }
     }
   }
 

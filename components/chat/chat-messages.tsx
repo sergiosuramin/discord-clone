@@ -88,8 +88,6 @@ const ChatMessages = ({
     )
   }
 
-  console.log('lala-- data--', data)
-
   return (
     <div ref={chatRef} className="tw-flex-1 tw-flex tw-flex-col tw-py-4 tw-overflow-y-auto">
       {/* !hasNextPage indicates we are in the last page, when there's nothing to load */}

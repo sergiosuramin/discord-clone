@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Check, Copy, RefreshCw } from 'lucide-react'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -27,7 +28,10 @@ export const InviteModal = () => {
     navigator.clipboard.writeText(inviteUrl)
     setCopied(true)
 
-    // TODO: add toast
+    toast('Copied to clipboard!', {
+      icon: '📋',
+      duration: 2500,
+    })
 
     setTimeout(() => {
       setCopied(false)
@@ -41,7 +45,9 @@ export const InviteModal = () => {
 
       onOpen(EModalType.InviteToServer, { server: response.data })
     } catch (error) {
-      console.log('lala-- <create new link>--', error)
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data ?? 'Failed to generate new server invite link')
+      }
     }
 
     setIsLoading(false)
