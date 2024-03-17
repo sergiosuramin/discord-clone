@@ -5,6 +5,8 @@ import SocketIndicator from '@/components/feature/socket-indicator'
 import UserAvatar from '@/components/feature/user-avatar'
 import { EChatHeaderType } from '@/types/enums'
 
+import ChatVideoButton from './chat-video-button'
+
 interface ChatHeaderProps {
   serverId: string
   name: string
@@ -30,6 +32,7 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
       <p className="tw-font-semibold tw-text-foreground tw-truncate">{name}</p>
 
       <div className="tw-ml-auto tw-flex tw-items-center">
+        {type === EChatHeaderType.DirectMessage && <ChatVideoButton />}
         <SocketIndicator />
       </div>
     </div>

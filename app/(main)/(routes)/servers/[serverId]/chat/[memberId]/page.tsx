@@ -4,6 +4,7 @@ import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
 import { ChatHeader, ChatInput, ChatMessages } from '@/components/chat'
+import MediaRoom from '@/components/feature/media-room'
 import { allDirectMessagePath, socketDirectMessagePath } from '@/lib/constant'
 import { generateConversation } from '@/lib/conversation'
 import { currentProfile } from '@/lib/current-profile'
@@ -15,9 +16,12 @@ interface ChatPageProps {
     memberId: string
     serverId: string
   }
+  searchParams: {
+    video?: boolean
+  }
 }
 
-const ChatWithMemberPage = async ({ params }: ChatPageProps) => {
+const ChatWithMemberPage = async ({ params, searchParams }: ChatPageProps) => {
   const profile = await currentProfile()
 
   if (!profile) {
@@ -69,28 +73,36 @@ const ChatWithMemberPage = async ({ params }: ChatPageProps) => {
         type={EChatHeaderType.DirectMessage}
       />
 
-      <ChatMessages
-        name={otherMember.profile.name}
-        member={myself}
-        chatId={dmConversation.id}
-        apiUrl={allDirectMessagePath} // get the messages
-        socketUrl={socketDirectMessagePath} // POST to send new message
-        socketQuery={{
-          conversationId: dmConversation.id,
-        }}
-        paramKey={EChatParamKey.ConversationId}
-        paramValue={dmConversation.id}
-        type={EChatHeaderType.DirectMessage}
-      />
+      {searchParams.video ? (
+        <>
+          <MediaRoom chatId={dmConversation.id} audio video />
+        </>
+      ) : (
+        <>
+          <ChatMessages
+            name={otherMember.profile.name}
+            member={myself}
+            chatId={dmConversation.id}
+            apiUrl={allDirectMessagePath} // get the messages
+            socketUrl={socketDirectMessagePath} // POST to send new message
+            socketQuery={{
+              conversationId: dmConversation.id,
+            }}
+            paramKey={EChatParamKey.ConversationId}
+            paramValue={dmConversation.id}
+            type={EChatHeaderType.DirectMessage}
+          />
 
-      <ChatInput
-        name={otherMember.profile.name}
-        type={EChatHeaderType.DirectMessage}
-        apiUrl={socketDirectMessagePath}
-        query={{
-          conversationId: dmConversation.id,
-        }}
-      />
+          <ChatInput
+            name={otherMember.profile.name}
+            type={EChatHeaderType.DirectMessage}
+            apiUrl={socketDirectMessagePath}
+            query={{
+              conversationId: dmConversation.id,
+            }}
+          />
+        </>
+      )}
     </div>
   )
 }
