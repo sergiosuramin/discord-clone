@@ -1,11 +1,21 @@
 'use client'
 import { useUser } from '@clerk/nextjs'
-import { LiveKitRoom, VideoConference } from '@livekit/components-react'
-import '@livekit/components-styles'
+import {
+  ControlBar,
+  GridLayout,
+  LayoutContextProvider,
+  LiveKitRoom,
+  ParticipantTile,
+  RoomAudioRenderer,
+  useTracks,
+} from '@livekit/components-react'
 import axios, { AxiosError } from 'axios'
+import { Track } from 'livekit-client'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+
+import '@livekit/components-styles'
 
 interface MediaRoomProps {
   chatId: string
@@ -28,7 +38,7 @@ const MediaRoom = ({ chatId, video = false, audio = true }: MediaRoomProps) => {
 
     ;(async () => {
       try {
-        const response = await axios.get(`/api/livekit?room=${chatId}&username=${name}`, {})
+        const response = await axios.get(`/api/livekit?room=${chatId}&username=${name}`)
 
         const data = await response.data
 
@@ -52,16 +62,48 @@ const MediaRoom = ({ chatId, video = false, audio = true }: MediaRoomProps) => {
   }
 
   return (
-    <LiveKitRoom
-      data-lk-theme="default"
-      serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-      token={token}
-      video={video}
-      audio={audio}
-      connect
-    >
-      <VideoConference />
-    </LiveKitRoom>
+    <LayoutContextProvider>
+      <LiveKitRoom
+        data-lk-theme="default"
+        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
+        token={token}
+        video={video}
+        audio={audio}
+        connect
+      >
+        <ConferenceComposer />
+        <RoomAudioRenderer />
+        <ControlBar
+          variation="minimal"
+          controls={{
+            microphone: true,
+            camera: video,
+            chat: true,
+            screenShare: true,
+            leave: true,
+            settings: true,
+          }}
+        />
+      </LiveKitRoom>
+    </LayoutContextProvider>
+  )
+}
+
+function ConferenceComposer() {
+  // `useTracks` returns all camera and screen share tracks. If a user
+  // joins without a published camera track, a placeholder track is returned.
+  const tracks = useTracks(
+    [
+      { source: Track.Source.Camera, withPlaceholder: true },
+      { source: Track.Source.ScreenShare, withPlaceholder: false },
+    ],
+    { onlySubscribed: false }
+  )
+
+  return (
+    <GridLayout tracks={tracks} style={{ height: 'calc(100svh - var(--lk-control-bar-height) - 46px)' }}>
+      <ParticipantTile />
+    </GridLayout>
   )
 }
 
