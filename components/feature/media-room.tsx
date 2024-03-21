@@ -12,6 +12,7 @@ import {
 import axios, { AxiosError } from 'axios'
 import { Track } from 'livekit-client'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -24,6 +25,7 @@ interface MediaRoomProps {
 }
 
 const MediaRoom = ({ chatId, video = false, audio = true }: MediaRoomProps) => {
+  const router = useRouter()
   const { user } = useUser()
   const [token, setToken] = useState<string>('')
 
@@ -70,20 +72,23 @@ const MediaRoom = ({ chatId, video = false, audio = true }: MediaRoomProps) => {
         video={video}
         audio={audio}
         connect
+        onDisconnected={() => router.back()}
       >
         <ConferenceComposer />
         <RoomAudioRenderer />
-        <ControlBar
-          variation="minimal"
-          controls={{
-            microphone: true,
-            camera: video,
-            chat: true,
-            screenShare: true,
-            leave: true,
-            settings: true,
-          }}
-        />
+        <div className="tw-flex tw-items-center tw-justify-center">
+          <ControlBar
+            variation="minimal"
+            controls={{
+              microphone: true,
+              camera: video,
+              chat: true,
+              screenShare: true,
+              leave: true,
+              settings: true,
+            }}
+          />
+        </div>
       </LiveKitRoom>
     </LayoutContextProvider>
   )
