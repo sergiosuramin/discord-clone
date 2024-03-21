@@ -9,7 +9,6 @@ import { SystemMode } from '@/types/enums'
 
 export function ClerkProvider({ children }: { children: ReactNode }) {
   const { theme } = useTheme()
-
   const baseTheme = theme === SystemMode.Dark ? clerkDark : null
 
   return <CP appearance={{ baseTheme }}>{children}</CP>
