@@ -63,6 +63,7 @@ body,
     --channel: 220, 13%, 95%;
     /* #000 */
     --chat-header: 0 0% 100%;
+    --gradient: linear-gradient(269.99deg, #00ffff 0.01%, #00a4ff 99.99%);
   }
 
   .dark {
@@ -101,6 +102,7 @@ body,
     --channel: 220, 7%, 18%;
     /* #313338 */
     --chat-header: 223, 7%, 21%;
+    --gradient: linear-gradient(179.99deg, #01b8e6 0.01%, #0072dd 99.99%);
   }
 }
 

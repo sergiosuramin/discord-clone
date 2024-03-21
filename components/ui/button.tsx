@@ -18,6 +18,7 @@ const buttonVariants = cva(
         primary: 'tw-bg-indigo-500 hover:tw-bg-indigo-500/90 tw-text-white',
         transparent:
           'tw-bg-transparent tw-border-0 hover:tw-bg-accent hover:tw-text-accent-foreground focus-visible:!tw-ring-0 focus-visible:!tw-ring-offset-0',
+        toggle: 'tw-w-fit tw-border-0 !tw-rounded-full tw-bg-white dark:tw-bg-zinc-800 tw-px-4',
       },
       size: {
         default: 'tw-h-10 tw-px-4 tw-py-2',
