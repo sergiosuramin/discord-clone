@@ -55,6 +55,9 @@ const NavigationSidebar = async () => {
               userButtonPopoverCard: {
                 pointerEvents: 'initial',
               },
+              userButtonPopoverFooter: {
+                display: 'none',
+              },
             },
           }}
         />
