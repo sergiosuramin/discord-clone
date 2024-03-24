@@ -52,6 +52,12 @@ const NavigationSidebar = async () => {
           appearance={{
             elements: {
               avatarBox: 'tw-w-[40px] tw-h-[40px]',
+              userButtonPopoverCard: {
+                pointerEvents: 'initial',
+              },
+              userButtonPopoverFooter: {
+                display: 'none',
+              },
             },
           }}
         />
