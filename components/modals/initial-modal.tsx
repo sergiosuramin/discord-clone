@@ -77,9 +77,9 @@ export const InitialModal = ({ creatorServerInviteCode }: InitialModalProps) => 
         {!initialAction ? (
           <>
             <DialogHeader className="tw-pt-8 tw-px-6">
-              <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Welcome!</DialogTitle>
+              <DialogTitle className="tw-text-2xl tw-text-center tw-font-bold">Welcome</DialogTitle>
               <DialogDescription className="tw-text-center tw-text-zinc-500">
-                Which one will be your first server?
+                Decide your first server!
               </DialogDescription>
             </DialogHeader>
 

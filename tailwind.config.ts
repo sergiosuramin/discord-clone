@@ -60,6 +60,9 @@ const config = {
           foreground: 'hsl(var(--primary-foreground))',
         },
       },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

@@ -75,8 +75,10 @@ const ChatMessages = ({
       //   <p className="tw-text-xs tw-text-zinc-500 dark:tw-text-zinc-400">Loading messages...</p>
       // </div>
 
-      <div className="tw-flex tw-flex-1 tw-items-end">
-        <ChatMessageSkeleton type={type} />
+      <div className="tw-flex-1 tw-flex tw-items-end">
+        <div className="tw-w-full">
+          <ChatMessageSkeleton type={type} />
+        </div>
       </div>
     )
   }
