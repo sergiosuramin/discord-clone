@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy Artifact
         run: |
-          scp -r -i '${{ secrets.PRIVATE_KEY }}' ./.next/* ${{ secrets.USER }}:~/.next
+          scp -r -i "${{ secrets.PRIVATE_KEY }}" -r ./.next/* ${{ secrets.USER }}:~/.next
 
       # - name: Deploy to EC2 instance
       #   run: |
