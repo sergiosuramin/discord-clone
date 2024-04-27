@@ -24,7 +24,7 @@
 
 ## Status
 
-⌛🟢 In Review
+⌛ 🟢 In Review
 
 ---
 
