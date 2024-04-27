@@ -43,14 +43,4 @@ jobs:
 
       - name: Deploy to EC2 instance
         run: |
-          ssh -o StrictHostKeyChecking=no -i 'd:/personal-project/discord-clone-docs/chatcord-key-pair.pem' ubuntu@13.215.48.21 'cd /home/ubuntu/discord-clone && git pull && npm install && npm run build'
-
-      # - name: Deploy to AWS
-      #   uses: easingthemes/aws-elasticbeanstalk-deploy@v3
-      #   with:
-      #     access_key: ${{ secrets.AWS_ACCESS_KEY }}
-      #     secret_key: ${{ secrets.AWS_SECRET_KEY }}
-      #     region: your-aws-region
-      #     application_name: your-application-name
-      #     environment_name: your-environment-name
-      #     zip_file: build.zip
+          ssh -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' ${{ secrets.USER }} 'cd ${{ secrets.PATH }} && git pull && npm install && npm run build'
