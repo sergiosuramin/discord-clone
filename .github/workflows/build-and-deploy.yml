@@ -27,6 +27,12 @@ jobs:
       ENV_CODE: prod
 
     steps:
+      - name: Print npm version
+        run: npm --version
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -37,6 +43,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Print npm debug log
+        run: cat $HOME/.npm/_logs/*.log
 
       - name: Build
         run: npm run build
