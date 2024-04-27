@@ -52,12 +52,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: allow perm
-        run: chmod 600 "D:/personal-project/discord-clone-docs/chatcord-key-pair.pem"
-
       - name: Copy Artifact
         run: |
-          scp -r -i "D:/personal-project/discord-clone-docs/chatcord-key-pair.pem" -r ./.next/* ubuntu@13.215.48.21:~/.next
+          scp -r -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ubuntu@13.215.48.21:~/.next
 
       # - name: Deploy to EC2 instance
       #   run: |
