@@ -27,12 +27,6 @@ jobs:
       ENV_CODE: prod
 
     steps:
-      - name: Install npm
-        run: npm install -g npm@9.5.1
-
-      - name: Print npm version
-        run: npm --version
-
       - name: Clear npm cache
         run: npm cache clean --force
 
