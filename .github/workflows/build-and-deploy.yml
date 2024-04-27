@@ -34,12 +34,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '19.x'
 
       - name: use cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy Artifact
         run: |
-          scp -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ubuntu@13.215.48.21:~/.next
+          scp -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ${{ secrets.USER }}:~/.next
 
       # - name: Deploy to EC2 instance
       #   run: |
