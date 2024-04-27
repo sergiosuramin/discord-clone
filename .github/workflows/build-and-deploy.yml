@@ -36,22 +36,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19.8.1'
+          node-version: '19.x'
 
       - name: use cache
         uses: actions/cache@v3
         with:
           path: |
             node_modules
-          key: 19.8.1-node_modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: 19.8.1-node_modules- # Take any latest cache if failed to find it for current lock
+          key: 19.x-node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: 19.x-node_modules- # Take any latest cache if failed to find it for current lock
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
 
-      - name: Deploy to EC2 instance
+      - name: Copy Artifact
         run: |
-          ssh -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' ${{ secrets.USER }} 'cd ${{ secrets.PATH }} && git pull && npm install && npm run build'
+          scp -r -i '${{ secrets.PRIVATE_KEY }}' ./.next/* ${{ secrets.USER }}:~/.next
+
+      # - name: Deploy to EC2 instance
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' ${{ secrets.USER }} 'cd ${{ secrets.PATH }} && git pull && npm install && npm run build'
