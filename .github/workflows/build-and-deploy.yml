@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy Artifact
         run: |
-          scp -r -i "${{ secrets.PRIVATE_KEY }}" -r ./.next/* ${{ secrets.USER }}:~/.next
+          scp -r -i "d:/personal-project/discord-clone-docs/chatcord-key-pair.pem" -r ./.next/* ubuntu@13.215.48.21:~/.next
 
       # - name: Deploy to EC2 instance
       #   run: |
