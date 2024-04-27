@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy Artifact
         run: |
-          scp -r -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ubuntu@13.215.48.21:~/.next
+          scp -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ubuntu@13.215.48.21:~/.next
 
       # - name: Deploy to EC2 instance
       #   run: |
