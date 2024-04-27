@@ -24,7 +24,7 @@
 
 ## Status
 
-⌛🟢 In Progress
+⌛🟢 In Review
 
 ---
 
@@ -44,7 +44,7 @@ npm run dev
 
 ## Deployment
 
-⌛ No live URL available yet (in development)
+⌛ No live URL available yet (in review)
 
 ## Commit Message
 
