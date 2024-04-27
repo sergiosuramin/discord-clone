@@ -55,7 +55,3 @@ jobs:
       - name: Copy Artifact
         run: |
           scp -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' -r ./.next/* ${{ secrets.USER }}:~/.next
-
-      # - name: Deploy to EC2 instance
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no -i '${{ secrets.PRIVATE_KEY }}' ${{ secrets.USER }} 'cd ${{ secrets.PATH }} && git pull && npm install && npm run build'
