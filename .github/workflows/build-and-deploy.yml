@@ -36,7 +36,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '19.8.1'
+
+      - name: use cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+          key: 19.8.1-node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: 19.8.1-node_modules- # Take any latest cache if failed to find it for current lock
 
       - name: Install dependencies
         run: npm install
