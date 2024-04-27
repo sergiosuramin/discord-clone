@@ -27,6 +27,9 @@ jobs:
       ENV_CODE: prod
 
     steps:
+      - name: Install npm
+        run: npm install -g npm@9.5.1
+
       - name: Print npm version
         run: npm --version
 
@@ -37,15 +40,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '19'
 
       - name: Install dependencies
         run: npm install
-
-      - name: Print npm debug log
-        run: cat $HOME/.npm/_logs/*.log
 
       - name: Build
         run: npm run build
